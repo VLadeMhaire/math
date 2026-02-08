@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 8: Integration by Substitution</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Lesson 8: Integrating Using Substitution</h1>
+        <p>Master u-substitution for integrating composite functions</p>
+    </div>
+    
+    <div class="book-wrapper">
+        <div class="book-container">
+            <div class="book" id="book"></div>
+            <div class="book-shadow"></div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn" id="prev-btn">
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        
+        <div class="page-indicator">
+            Page <span id="current-page">1</span> of <span id="total-pages">6</span>
+        </div>
+        
+        <button class="btn" id="next-btn">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+    
+    <div class="instructions">
+        <p><i class="fas fa-mouse-pointer"></i> Click on the right edge of a page to flip forward, or the left edge to flip backward</p>
+        <p><i class="fas fa-book"></i> You can also use the navigation buttons or keyboard arrows (← →)</p>
+    </div>
+    
+    <div class="back-to-index">
+        <a href="index.html">
+            <i class="fas fa-home"></i> Back to All Lessons
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Lesson 8 content - Integration by Substitution
+        const lesson8Pages = [
+            {
+                bookTitle: "Integration by Substitution",
+                title: "The Substitution Method (u-sub)",
+                content: `<h3>Reverse Chain Rule</h3>
+                <p>Substitution is the integration equivalent of the chain rule for differentiation. It's used when we see a composite function:</p>
+                <div class="formula">∫ f(g(x))·g'(x) dx</div>
+                
+                <div class="math-example">
+                    <h3>The Idea</h3>
+                    <p>If we let u = g(x), then du = g'(x) dx.<br>
+                    The integral becomes:</p>
+                    <div class="formula">∫ f(g(x))·g'(x) dx = ∫ f(u) du</div>
+                    <p>This is often simpler to integrate!</p>
+                </div>
+                
+                <h3>When to Use Substitution</h3>
+                <p>Look for these patterns:</p>
+                <p>1. A function and its derivative appear together<br>
+                2. Something like ∫ (something)ⁿ · (derivative of something) dx<br>
+                3. Compositions like sin(x²), eˣ², √(x³+1)</p>
+                
+                <h3>Four-Step Process</h3>
+                <div class="math-example">
+                    <p>1. <strong>Choose u</strong> = g(x), usually the "inside function"<br>
+                    2. <strong>Compute du</strong> = g'(x) dx<br>
+                    3. <strong>Substitute</strong> to get ∫ f(u) du<br>
+                    4. <strong>Integrate</strong> and substitute back u = g(x)</p>
+                </div>
+                
+                <h3>Example Preview</h3>
+                <p>∫ 2x·eˣ² dx<br>
+                Notice: x² is inside eˣ², and its derivative 2x appears as a factor.<br>
+                Perfect for substitution!</p>
+                
+                <h3>For Definite Integrals</h3>
+                <p>When doing substitution with definite integrals, you can either:<br>
+                1. Substitute back to x before evaluating<br>
+                2. Change the limits of integration to u-values</p>`
+            },
+            {
+                title: "Example 1: Basic Substitution",
+                content: `<h3>Problem:</h3>
+                <p>Find ∫ 2x·(x² + 1)⁴ dx</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Identify u and du</h3>
+                    <p>We see (x² + 1)⁴. Its derivative is 2x, which appears as a factor.</p>
+                    <div class="formula">Let u = x² + 1</div>
+                    <div class="formula">Then du = 2x dx</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Rewrite the integral in terms of u</h3>
+                    <p>The integral becomes:</p>
+                    <div class="formula">∫ (x² + 1)⁴ · (2x dx) = ∫ u⁴ du</div>
+                    <p>Notice: 2x dx is exactly du, and (x² + 1)⁴ is u⁴.</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Integrate with respect to u</h3>
+                    <div class="formula">∫ u⁴ du = u⁵/5 + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Substitute back u = x² + 1</h3>
+                    <div class="formula">= (x² + 1)⁵/5 + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 5 — Verify by differentiation</h3>
+                    <div class="formula">d/dx [(x² + 1)⁵/5 + C] = (1/5)·5(x² + 1)⁴·2x<br>
+                    = (x² + 1)⁴·2x ✓</div>
+                    <p>This matches our original integrand!</p>
+                </div>
+                
+                <h3>Why This Works</h3>
+                <p>This is the reverse of the chain rule:</p>
+                <div class="formula">d/dx [(x² + 1)⁵/5] = (x² + 1)⁴·2x</div>
+                
+                <h3>Pattern Recognition</h3>
+                <p>Look for: ∫ [function]ⁿ × [its derivative] dx<br>
+                Here: function = x² + 1, n = 4, derivative = 2x</p>
+                
+                <div class="math-example">
+                    <h3>What if the coefficient isn't exactly right?</h3>
+                    <p>Example: ∫ x·(x² + 1)⁴ dx<br>
+                    Here we have x dx but need 2x dx.<br>
+                    Solution: Write x dx = ½(2x dx) = ½ du</p>
+                </div>`
+            },
+            {
+                title: "Example 2: Trigonometric Substitution",
+                content: `<h3>Problem:</h3>
+                <p>Find ∫ sin² x cos x dx</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Identify u and du</h3>
+                    <p>We see sin² x = (sin x)². The derivative of sin x is cos x, which appears.</p>
+                    <div class="formula">Let u = sin x</div>
+                    <div class="formula">Then du = cos x dx</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Rewrite the integral</h3>
+                    <div class="formula">∫ sin² x cos x dx = ∫ u² du</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Integrate with respect to u</h3>
+                    <div class="formula">∫ u² du = u³/3 + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Substitute back u = sin x</h3>
+                    <div class="formula">= (sin³ x)/3 + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 5 — Verify by differentiation</h3>
+                    <div class="formula">d/dx [(sin³ x)/3 + C] = (1/3)·3 sin² x·cos x<br>
+                    = sin² x cos x ✓</div>
+                </div>
+                
+                <h3>Alternative Choices</h3>
+                <p>Could we choose u = cos x? Let's check:</p>
+                <div class="formula">If u = cos x, then du = -sin x dx</div>
+                <p>We'd have sin² x = 1 - cos² x = 1 - u², and cos x dx = du.</p>
+                <div class="formula">∫ sin² x cos x dx = ∫ (1 - u²) du = u - u³/3 + C<br>
+                = cos x - (cos³ x)/3 + C</div>
+                
+                <div class="math-example">
+                    <h3>Are both answers correct?</h3>
+                    <p>Yes! They differ by a constant:</p>
+                    <div class="formula">sin³ x/3 = [1 - cos² x]·sin x/3 = sin x/3 - sin x cos² x/3</div>
+                    <p>While cos x - cos³ x/3 = cos x - cos² x·cos x/3</p>
+                    <p>They represent the same family of antiderivatives!</p>
+                </div>
+                
+                <h3>General Trigonometric Pattern</h3>
+                <div class="formula">∫ sinⁿ x cos x dx, let u = sin x</div>
+                <div class="formula">∫ cosⁿ x sin x dx, let u = cos x (note: sin x dx = -du)</div>`
+            },
+            {
+                title: "Adjusting Constants in Substitution",
+                content: `<h3>When du Doesn't Match Exactly</h3>
+                <p>Sometimes we need to adjust constants to make substitution work.</p>
+                
+                <h3>Example: Missing Constant Factor</h3>
+                <p>∫ x·eˣ² dx</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Identify u</h3>
+                    <div class="formula">Let u = x²</div>
+                    <div class="formula">Then du = 2x dx</div>
+                    <p>But we have x dx, not 2x dx.</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Solve for what we have</h3>
+                    <p>From du = 2x dx, we get:</p>
+                    <div class="formula">x dx = ½ du</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Substitute</h3>
+                    <div class="formula">∫ x·eˣ² dx = ∫ eˣ²·(x dx) = ∫ eᵘ·(½ du) = ½∫ eᵘ du</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Integrate</h3>
+                    <div class="formula">½∫ eᵘ du = ½ eᵘ + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 5 — Substitute back</h3>
+                    <div class="formula">= ½ eˣ² + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Verification</h3>
+                    <div class="formula">d/dx [½ eˣ² + C] = ½·eˣ²·2x = x eˣ² ✓</div>
+                </div>
+                
+                <h3>General Strategy for Missing Constants</h3>
+                <p>If you have: ∫ f(g(x))·[k·g'(x)] dx where k is constant<br>
+                Let u = g(x), du = g'(x) dx<br>
+                Then: ∫ f(g(x))·[k·g'(x)] dx = k∫ f(u) du</p>
+                
+                <h3>Example: With Extra Factor</h3>
+                <p>∫ 3x²·√(x³ + 4) dx</p>
+                
+                <div class="math-example">
+                    <h3>Solution</h3>
+                    <div class="formula">Let u = x³ + 4, du = 3x² dx</div>
+                    <div class="formula">∫ 3x²·√(x³ + 4) dx = ∫ √u du = ∫ u¹/² du</div>
+                    <div class="formula">= u³/²/(3/2) + C = (2/3)u³/² + C</div>
+                    <div class="formula">= (2/3)(x³ + 4)³/² + C</div>
+                </div>
+                
+                <h3>Check Your Substitution</h3>
+                <p>After choosing u, make sure you can:<br>
+                1. Express everything in terms of u<br>
+                2. Account for any constant factors<br>
+                3. Have no leftover x terms</p>
+                
+                <h3>Practice Pattern</h3>
+                <div class="formula">∫ [f(x)]ⁿ·f'(x) dx = [f(x)]ⁿ⁺¹/(n+1) + C</div>
+                <p>This is the power rule in disguise with substitution!</p>`
+            },
+            {
+                title: "Definite Integrals with Substitution",
+                content: `<h3>Two Methods for Definite Integrals</h3>
+                <p>When evaluating definite integrals using substitution, you have a choice:</p>
+                
+                <div class="math-example">
+                    <h3>Method 1: Substitute Back First</h3>
+                    <p>1. Perform substitution as usual<br>
+                    2. Find antiderivative in terms of u<br>
+                    3. Substitute back to x<br>
+                    4. Evaluate using original limits</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Method 2: Change Limits</h3>
+                    <p>1. Perform substitution u = g(x)<br>
+                    2. Change limits: When x = a, u = g(a); when x = b, u = g(b)<br>
+                    3. Integrate with respect to u using new limits<br>
+                    4. No need to substitute back!</p>
+                </div>
+                
+                <h3>Example: ∫₀¹ 2x(x² + 1)³ dx</h3>
+                
+                <div class="math-example">
+                    <h3>Method 1 — Substitute back</h3>
+                    <div class="formula">Let u = x² + 1, du = 2x dx</div>
+                    <div class="formula">∫ 2x(x² + 1)³ dx = ∫ u³ du = u⁴/4 + C</div>
+                    <div class="formula">= (x² + 1)⁴/4 + C</div>
+                    <p>Now evaluate from 0 to 1:</p>
+                    <div class="formula">[(1² + 1)⁴/4] - [(0² + 1)⁴/4] = [16/4] - [1/4] = 4 - 0.25 = 3.75</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Method 2 — Change limits</h3>
+                    <div class="formula">u = x² + 1</div>
+                    <p>When x = 0: u = 0² + 1 = 1<br>
+                    When x = 1: u = 1² + 1 = 2</p>
+                    <div class="formula">∫₀¹ 2x(x² + 1)³ dx = ∫₁² u³ du</div>
+                    <div class="formula">= [u⁴/4]₁² = [16/4] - [1/4] = 4 - 0.25 = 3.75</div>
+                    <p>Same result! Often Method 2 is cleaner.</p>
+                </div>
+                
+                <h3>Example with Trigonometric Function</h3>
+                <p>∫₀^{π/2} sin² x cos x dx</p>
+                
+                <div class="math-example">
+                    <h3>Solution (changing limits)</h3>
+                    <div class="formula">Let u = sin x, du = cos x dx</div>
+                    <p>When x = 0: u = sin 0 = 0<br>
+                    When x = π/2: u = sin(π/2) = 1</p>
+                    <div class="formula">∫₀^{π/2} sin² x cos x dx = ∫₀¹ u² du</div>
+                    <div class="formula">= [u³/3]₀¹ = 1/3 - 0 = 1/3</div>
+                </div>
+                
+                <h3>Advantages of Changing Limits</h3>
+                <p>1. No need to substitute back<br>
+                2. Fewer steps<br>
+                3. Less chance of algebraic error<br>
+                4. Especially useful when substitution is messy</p>
+                
+                <h3>When to Use Each Method</h3>
+                <p>• <strong>Change limits:</strong> When u = g(x) is one-to-one on [a,b]<br>
+                • <strong>Substitute back:</strong> When you're unsure about the new limits<br>
+                • <strong>Substitute back:</strong> When finding indefinite integral anyway</p>
+                
+                <h3>Caution</h3>
+                <p>Always check if the substitution function is one-to-one on the interval when changing limits. If not, you may need to break the integral into pieces.</p>`
+            },
+            {
+                title: "Summary and Practice",
+                content: `<h3>Substitution Method Summary</h3>
+                <div class="math-example">
+                    <p><strong>For ∫ f(g(x))·g'(x) dx:</strong></p>
+                    <p>1. Let u = g(x)<br>
+                    2. Compute du = g'(x) dx<br>
+                    3. Substitute to get ∫ f(u) du<br>
+                    4. Integrate<br>
+                    5. Substitute back u = g(x)</p>
+                </div>
+                
+                <h3>Key Patterns to Recognize</h3>
+                <div class="math-example">
+                    <p>1. ∫ [f(x)]ⁿ·f'(x) dx → Let u = f(x)<br>
+                    2. ∫ eᶠ⁽ˣ⁾·f'(x) dx → Let u = f(x)<br>
+                    3. ∫ sin(f(x))·f'(x) dx → Let u = f(x)<br>
+                    4. ∫ 1/f(x)·f'(x) dx → Let u = f(x) (gives ln|f(x)|)</p>
+                </div>
+                
+                <h3>Common u-Substitutions</h3>
+                <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                    <tr style="background: #e8f4ff;">
+                        <th style="padding: 8px; text-align: left;">Integral Form</th>
+                        <th style="padding: 8px; text-align: left;">Substitution</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">∫ f(ax + b) dx</td>
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">u = ax + b</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">∫ xⁿ·f(xⁿ⁺¹) dx</td>
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">u = xⁿ⁺¹</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">∫ sinⁿ x cos x dx</td>
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">u = sin x</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">∫ cosⁿ x sin x dx</td>
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">u = cos x</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">∫ eᶠ⁽ˣ⁾·f'(x) dx</td>
+                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">u = f(x)</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="padding: 8px;">∫ f'(x)/f(x) dx</td>
+                        <td style="padding: 8px;">u = f(x)</td>
+                    </tr>
+                </table>
+                
+                <h3>Try It Yourself</h3>
+                <div class="math-example">
+                    <p><strong>Practice Problem 1:</strong><br>
+                    Find ∫ 3x²·eˣ³ dx</p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Practice Problem 2:</strong><br>
+                    Evaluate ∫₀^{π/4} sec² x·tan x dx</p>
+                    <p><em>Hint: Try u = tan x</em></p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Practice Problem 3:</strong><br>
+                    Find ∫ x/√(x² + 4) dx</p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Practice Problem 4:</strong><br>
+                    Evaluate ∫₀¹ 2x√(x² + 1) dx using both methods</p>
+                </div>
+                
+                <h3>Troubleshooting Tips</h3>
+                <p>1. If du doesn't match exactly, solve for what you have<br>
+                2. If you have extra x terms after substitution, try a different u<br>
+                3. Always verify by differentiating your answer<br>
+                4. For definite integrals, consider changing limits for efficiency</p>
+                
+                <h3>Final Thought</h3>
+                <p>Substitution is like finding the right key for a lock. With practice, you'll recognize patterns quickly. Remember: The goal is to transform a complicated integral into a basic form you know how to integrate.</p>`
+            }
+        ];
+
+        // Initialize the book with Lesson 8 content
+        document.addEventListener('DOMContentLoaded', function() {
+            initBook(lesson8Pages);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 9: Long Division & Completing the Square</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Lesson 9: Long Division & Completing the Square</h1>
+        <p>Algebraic techniques for integrating rational functions</p>
+    </div>
+    
+    <div class="book-wrapper">
+        <div class="book-container">
+            <div class="book" id="book"></div>
+            <div class="book-shadow"></div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn" id="prev-btn">
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        
+        <div class="page-indicator">
+            Page <span id="current-page">1</span> of <span id="total-pages">6</span>
+        </div>
+        
+        <button class="btn" id="next-btn">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+    
+    <div class="instructions">
+        <p><i class="fas fa-mouse-pointer"></i> Click on the right edge of a page to flip forward, or the left edge to flip backward</p>
+        <p><i class="fas fa-book"></i> You can also use the navigation buttons or keyboard arrows (← →)</p>
+    </div>
+    
+    <div class="back-to-index">
+        <a href="index.html">
+            <i class="fas fa-home"></i> Back to All Lessons
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Lesson 9 content - Long Division & Completing the Square
+        const lesson9Pages = [
+            {
+                bookTitle: "Long Division & Completing Square",
+                title: "Algebraic Manipulation Before Integration",
+                content: `<h3>Why Algebraic Manipulation?</h3>
+                <p>Some integrals can't be evaluated directly with basic rules or substitution. We need algebraic techniques to rewrite them into integrable forms.</p>
+                
+                <div class="math-example">
+                    <h3>Two Key Techniques</h3>
+                    <p>1. <strong>Polynomial Long Division</strong><br>
+                    When numerator degree ≥ denominator degree in rational functions</p>
+                    <p>2. <strong>Completing the Square</strong><br>
+                    For integrals involving quadratic expressions, especially with arctan or inverse hyperbolic forms</p>
+                </div>
+                
+                <h3>Long Division for Rational Functions</h3>
+                <p>A rational function P(x)/Q(x) is <strong>proper</strong> if deg(P) < deg(Q).<br>
+                If deg(P) ≥ deg(Q), we use long division to write:</p>
+                <div class="formula">P(x)/Q(x) = S(x) + R(x)/Q(x)</div>
+                <p>where S(x) is a polynomial, and R(x) is the remainder with deg(R) < deg(Q).</p>
+                
+                <h3>Completing the Square</h3>
+                <p>For ax² + bx + c, we rewrite it as:</p>
+                <div class="formula">a(x - h)² + k</div>
+                <p>This is useful because:</p>
+                <p>1. ∫ 1/(u² + a²) du = (1/a) arctan(u/a) + C<br>
+                2. ∫ 1/√(a² - u²) du = arcsin(u/a) + C<br>
+                3. ∫ 1/√(u² ± a²) du has logarithmic forms</p>
+                
+                <h3>When to Use Each Technique</h3>
+                <p>• <strong>Long division:</strong> When integrating rational functions where numerator degree ≥ denominator degree<br>
+                • <strong>Completing square:</strong> When integrating expressions with irreducible quadratics</p>
+                
+                <h3>Example Preview</h3>
+                <p>∫ (x³ + 2x² - 1)/(x + 1) dx<br>
+                Degree numerator (3) ≥ degree denominator (1) → Use long division!</p>`
+            },
+            {
+                title: "Example 1: Long Division",
+                content: `<h3>Problem:</h3>
+                <p>Find ∫ (x² + 3x - 5)/(x - 2) dx</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Perform polynomial long division</h3>
+                    <p>Divide x² + 3x - 5 by x - 2:</p>
+                    <div class="formula">x² ÷ x = x<br>
+                    Multiply: x(x - 2) = x² - 2x<br>
+                    Subtract: (x² + 3x - 5) - (x² - 2x) = 5x - 5</div>
+                    <div class="formula">5x ÷ x = 5<br>
+                    Multiply: 5(x - 2) = 5x - 10<br>
+                    Subtract: (5x - 5) - (5x - 10) = 5</div>
+                    <p>So: (x² + 3x - 5)/(x - 2) = x + 5 + 5/(x - 2)</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Rewrite the integral</h3>
+                    <div class="formula">∫ (x² + 3x - 5)/(x - 2) dx = ∫ [x + 5 + 5/(x - 2)] dx</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Integrate term by term</h3>
+                    <div class="formula">= ∫ x dx + ∫ 5 dx + ∫ 5/(x - 2) dx<br>
+                    = x²/2 + 5x + 5∫ 1/(x - 2) dx</div>
+                    <p>For ∫ 1/(x - 2) dx, use substitution: u = x - 2, du = dx</p>
+                    <div class="formula">5∫ 1/(x - 2) dx = 5 ln|x - 2| + C₁</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Combine results</h3>
+                    <div class="formula">= x²/2 + 5x + 5 ln|x - 2| + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 5 — Verify by differentiation</h3>
+                    <div class="formula">d/dx [x²/2 + 5x + 5 ln|x - 2| + C]<br>
+                    = x + 5 + 5/(x - 2)</div>
+                    <p>Combine over common denominator:</p>
+                    <div class="formula">= [(x + 5)(x - 2) + 5]/(x - 2)<br>
+                    = [x² + 3x - 10 + 5]/(x - 2)<br>
+                    = (x² + 3x - 5)/(x - 2) ✓</div>
+                </div>
+                
+                <h3>Why Long Division Helps</h3>
+                <p>The original integral ∫ (x² + 3x - 5)/(x - 2) dx looked complicated.<br>
+                After division, we have simple terms: polynomial + basic rational function.</p>
+                
+                <div class="math-example">
+                    <h3>Quick Check</h3>
+                    <p>Always verify your division by multiplying back:</p>
+                    <div class="formula">(x + 5)(x - 2) + 5 = x² + 3x - 10 + 5 = x² + 3x - 5 ✓</div>
+                </div>
+                
+                <h3>General Process</h3>
+                <p>1. Divide if deg(numerator) ≥ deg(denominator)<br>
+                2. Rewrite as polynomial + proper fraction<br>
+                3. Integrate polynomial part (easy)<br>
+                4. Integrate proper fraction (may need further techniques)</p>`
+            },
+            {
+                title: "Example 2: More Complex Division",
+                content: `<h3>Problem:</h3>
+                <p>Find ∫ (2x³ - 3x² + x - 1)/(x² + 1) dx</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Perform long division</h3>
+                    <p>Divide 2x³ - 3x² + x - 1 by x² + 1:</p>
+                    <div class="formula">2x³ ÷ x² = 2x<br>
+                    Multiply: 2x(x² + 1) = 2x³ + 2x<br>
+                    Subtract: (2x³ - 3x² + x - 1) - (2x³ + 2x) = -3x² - x - 1</div>
+                    <div class="formula">-3x² ÷ x² = -3<br>
+                    Multiply: -3(x² + 1) = -3x² - 3<br>
+                    Subtract: (-3x² - x - 1) - (-3x² - 3) = -x + 2</div>
+                    <p>So: (2x³ - 3x² + x - 1)/(x² + 1) = 2x - 3 + (-x + 2)/(x² + 1)</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Rewrite the integral</h3>
+                    <div class="formula">∫ (2x³ - 3x² + x - 1)/(x² + 1) dx = ∫ [2x - 3 + (-x + 2)/(x² + 1)] dx</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Split the rational part</h3>
+                    <div class="formula">(-x + 2)/(x² + 1) = -x/(x² + 1) + 2/(x² + 1)</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Integrate each part</h3>
+                    <p>First part: ∫ (2x - 3) dx = x² - 3x</p>
+                    <p>Second part: ∫ -x/(x² + 1) dx<br>
+                    Use substitution: u = x² + 1, du = 2x dx, so x dx = ½ du<br>
+                    ∫ -x/(x² + 1) dx = -½∫ 1/u du = -½ ln|u| = -½ ln(x² + 1)</p>
+                    <p>Third part: ∫ 2/(x² + 1) dx = 2 arctan x</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 5 — Combine results</h3>
+                    <div class="formula">= x² - 3x - ½ ln(x² + 1) + 2 arctan x + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 6 — Verify by differentiation</h3>
+                    <p>d/dx [x² - 3x - ½ ln(x² + 1) + 2 arctan x + C]:</p>
+                    <div class="formula">= 2x - 3 - ½·(2x)/(x² + 1) + 2/(x² + 1)<br>
+                    = 2x - 3 - x/(x² + 1) + 2/(x² + 1)<br>
+                    = 2x - 3 + (-x + 2)/(x² + 1)</div>
+                    <p>Combine 2x - 3 with the fraction by getting common denominator:</p>
+                    <div class="formula">= [(2x - 3)(x² + 1) + (-x + 2)]/(x² + 1)<br>
+                    = [2x³ + 2x - 3x² - 3 - x + 2]/(x² + 1)<br>
+                    = (2x³ - 3x² + x - 1)/(x² + 1) ✓</div>
+                </div>
+                
+                <h3>Key Insight</h3>
+                <p>After long division, the rational part (-x + 2)/(x² + 1) splits into:<br>
+                1. -x/(x² + 1) → integrates to -½ ln(x² + 1)<br>
+                2. 2/(x² + 1) → integrates to 2 arctan x</p>
+                
+                <div class="math-example">
+                    <h3>Pattern for ∫ (Ax + B)/(x² + a²) dx</h3>
+                    <p>Split into: A∫ x/(x² + a²) dx + B∫ 1/(x² + a²) dx<br>
+                    First: Let u = x² + a², gives (A/2) ln(x² + a²)<br>
+                    Second: (B/a) arctan(x/a)</p>
+                </div>`
+            },
+            {
+                title: "Completing the Square Technique",
+                content: `<h3>What is Completing the Square?</h3>
+                <p>Rewriting a quadratic ax² + bx + c in the form a(x - h)² + k.</p>
+                
+                <div class="math-example">
+                    <h3>Process for x² + bx + c</h3>
+                    <p>1. Start with x² + bx<br>
+                    2. Add and subtract (b/2)²<br>
+                    3. x² + bx = (x + b/2)² - (b/2)²</p>
+                    <p>Complete form: x² + bx + c = (x + b/2)² + (c - b²/4)</p>
+                </div>
+                
+                <h3>Example: Complete the square for x² + 6x + 13</h3>
+                <div class="math-example">
+                    <div class="formula">x² + 6x + 13 = x² + 6x + 9 - 9 + 13<br>
+                    = (x + 3)² + 4</div>
+                    <p>Here: b = 6, so (b/2)² = 9<br>
+                    Add and subtract 9, then combine constants.</p>
+                </div>
+                
+                <h3>Why This Helps with Integration</h3>
+                <p>Many integration formulas require perfect squares:</p>
+                
+                <div class="math-example">
+                    <h3>Key Formulas</h3>
+                    <div class="formula">∫ 1/(x² + a²) dx = (1/a) arctan(x/a) + C</div>
+                    <div class="formula">∫ 1/√(a² - x²) dx = arcsin(x/a) + C</div>
+                    <div class="formula">∫ 1/√(x² + a²) dx = ln|x + √(x² + a²)| + C</div>
+                    <div class="formula">∫ 1/√(x² - a²) dx = ln|x + √(x² - a²)| + C</div>
+                </div>
+                
+                <h3>General Process for Integration</h3>
+                <p>1. Complete the square in the quadratic<br>
+                2. Make a substitution u = x - h (the completed square part)<br>
+                3. Recognize the integral form<br>
+                4. Apply the appropriate formula</p>
+                
+                <h3>Example with Coefficient</h3>
+                <p>Complete square for 2x² - 8x + 10:</p>
+                <div class="math-example">
+                    <div class="formula">2x² - 8x + 10 = 2(x² - 4x) + 10<br>
+                    = 2(x² - 4x + 4 - 4) + 10<br>
+                    = 2[(x - 2)² - 4] + 10<br>
+                    = 2(x - 2)² - 8 + 10<br>
+                    = 2(x - 2)² + 2</div>
+                    <p>Factor out leading coefficient first!</p>
+                </div>
+                
+                <h3>Irreducible Quadratics</h3>
+                <p>A quadratic is <strong>irreducible</strong> over reals if it has no real roots (discriminant b² - 4ac < 0).<br>
+                Completing the square reveals its positive constant term, allowing arctan integration.</p>
+                
+                <div class="math-example">
+                    <h3>Example: x² + 4x + 13</h3>
+                    <p>Discriminant: 4² - 4(1)(13) = 16 - 52 = -36 < 0<br>
+                    Complete square: (x + 2)² + 9</p>
+                </div>`
+            },
+            {
+                title: "Example 3: Integration with Completing Square",
+                content: `<h3>Problem:</h3>
+                <p>Find ∫ 1/(x² + 6x + 13) dx</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Complete the square</h3>
+                    <div class="formula">x² + 6x + 13 = x² + 6x + 9 - 9 + 13<br>
+                    = (x + 3)² + 4</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Rewrite the integral</h3>
+                    <div class="formula">∫ 1/(x² + 6x + 13) dx = ∫ 1/[(x + 3)² + 4] dx</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Use substitution</h3>
+                    <p>Let u = x + 3, then du = dx</p>
+                    <div class="formula">∫ 1/[(x + 3)² + 4] dx = ∫ 1/(u² + 4) du</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Recognize the form</h3>
+                    <p>This matches ∫ 1/(u² + a²) du with a² = 4, so a = 2.</p>
+                    <div class="formula">∫ 1/(u² + 4) du = (1/2) arctan(u/2) + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 5 — Substitute back</h3>
+                    <div class="formula">= (1/2) arctan((x + 3)/2) + C</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 6 — Verify by differentiation</h3>
+                    <p>d/dx [(1/2) arctan((x + 3)/2) + C]:</p>
+                    <div class="formula">= (1/2) × [1/(1 + ((x + 3)/2)²)] × (1/2)<br>
+                    = 1/[4(1 + (x + 3)²/4)]<br>
+                    = 1/[4 + (x + 3)²]<br>
+                    = 1/(x² + 6x + 9 + 4)<br>
+                    = 1/(x² + 6x + 13) ✓</div>
+                </div>
+                
+                <h3>General Pattern</h3>
+                <p>For ∫ 1/(ax² + bx + c) dx with b² - 4ac < 0:</p>
+                <div class="math-example">
+                    <p>1. Complete square to get ∫ 1/[A(u² + k)] du<br>
+                    2. Becomes (1/√k) arctan(u/√k) / A (adjusted for constant)</p>
+                </div>
+                
+                <h3>Example with Linear Numerator</h3>
+                <p>∫ (x + 1)/(x² + 4x + 5) dx</p>
+                
+                <div class="math-example">
+                    <h3>Solution</h3>
+                    <div class="formula">Complete square: x² + 4x + 5 = (x + 2)² + 1</div>
+                    <p>Write numerator to match derivative of completed square:</p>
+                    <div class="formula">x + 1 = ½(2x + 4) - 1 = ½[2(x + 2)] - 1</div>
+                    <div class="formula">∫ (x + 1)/(x² + 4x + 5) dx = ½∫ (2x + 4)/(x² + 4x + 5) dx - ∫ 1/(x² + 4x + 5) dx</div>
+                    <p>First integral: Let u = x² + 4x + 5, du = (2x + 4) dx<br>
+                    Second: Complete square as before</p>
+                </div>
+                
+                <h3>Strategy</h3>
+                <p>When numerator is linear Ax + B and denominator is quadratic:<br>
+                Try to rewrite numerator as [derivative of denominator] + constant</p>`
+            },
+            {
+                title: "Summary and Practice",
+                content: `<h3>Technique Selection Guide</h3>
+                <div class="math-example">
+                    <p><strong>For ∫ P(x)/Q(x) dx:</strong></p>
+                    <p>1. If deg(P) ≥ deg(Q) → Use long division first<br>
+                    2. If deg(P) < deg(Q) and Q is quadratic → Consider completing square<br>
+                    3. If denominator factors → Consider partial fractions (next lesson)</p>
+                </div>
+                
+                <h3>Long Division Process</h3>
+                <div class="math-example">
+                    <p>1. Divide P(x) by Q(x)<br>
+                    2. Write P(x)/Q(x) = S(x) + R(x)/Q(x)<br>
+                    3. Integrate S(x) (polynomial)<br>
+                    4. Integrate R(x)/Q(x) (may need further techniques)</p>
+                </div>
+                
+                <h3>Completing Square Formulas</h3>
+                <div class="formula">x² + bx + c = (x + b/2)² + (c - b²/4)</div>
+                <div class="formula">ax² + bx + c = a(x + b/2a)² + (c - b²/4a)</div>
+                
+                <h3>Key Integration Formulas After Completing Square</h3>
+                <div class="formula">∫ 1/(u² + a²) du = (1/a) arctan(u/a) + C</div>
+                <div class="formula">∫ 1/√(a² - u²) du = arcsin(u/a) + C</div>
+                <div class="formula">∫ 1/√(u² + a²) du = ln|u + √(u² + a²)| + C</div>
+                
+                <h3>Try It Yourself</h3>
+                <div class="math-example">
+                    <p><strong>Practice Problem 1:</strong><br>
+                    Find ∫ (x³ - x + 1)/(x² - 1) dx</p>
+                    <p><em>Hint: Long division first</em></p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Practice Problem 2:</strong><br>
+                    Evaluate ∫ 1/(x² + 2x + 5) dx</p>
+                    <p><em>Complete square: x² + 2x + 5 = (x + 1)² + 4</em></p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Practice Problem 3:</strong><br>
+                    Find ∫ (2x + 3)/(x² + 4x + 8) dx</p>
+                    <p><em>Hint: Write numerator as derivative of denominator plus constant</em></p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Practice Problem 4:</strong><br>
+                    Evaluate ∫ x²/(x + 1) dx</p>
+                </div>
+                
+                <h3>Common Pitfalls</h3>
+                <p>1. Forgetting to check if division is needed<br>
+                2. Not verifying your long division<br>
+                3. Making algebraic errors in completing square<br>
+                4. Forgetting to adjust constants when making substitutions<br>
+                5. Not recognizing standard forms after manipulation</p>
+                
+                <h3>Verification Strategy</h3>
+                <p>Always check your antiderivative by:<br>
+                1. Differentiating<br>
+                2. Combining back to single fraction if needed<br>
+                3. Simplifying to match original integrand</p>
+                
+                <h3>Real-World Applications</h3>
+                <p>These techniques appear in:<br>
+                • Physics: Motion with resistance (rational functions)<br>
+                • Engineering: Signal processing (quadratic forms)<br>
+                • Economics: Cost functions (rational expressions)<br>
+                • Statistics: Probability densities (quadratic in exponent)</p>
+                
+                <p>Mastering algebraic manipulation makes many more integrals solvable!</p>`
+            }
+        ];
+
+        // Initialize the book with Lesson 9 content
+        document.addEventListener('DOMContentLoaded', function() {
+            initBook(lesson9Pages);
+        });
+    </script>
+</body>
+</html>

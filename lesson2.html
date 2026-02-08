@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Riemann Sums</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Lesson 2: Approximating Areas with Riemann Sums</h1>
+        <p>Learn to approximate areas under curves using rectangles</p>
+    </div>
+    
+    <div class="book-wrapper">
+        <div class="book-container">
+            <div class="book" id="book"></div>
+            <div class="book-shadow"></div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn" id="prev-btn">
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        
+        <div class="page-indicator">
+            Page <span id="current-page">1</span> of <span id="total-pages">7</span>
+        </div>
+        
+        <button class="btn" id="next-btn">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+    
+    <div class="instructions">
+        <p><i class="fas fa-mouse-pointer"></i> Click on the right edge of a page to flip forward, or the left edge to flip backward</p>
+        <p><i class="fas fa-book"></i> You can also use the navigation buttons or keyboard arrows (← →)</p>
+    </div>
+    
+    <div class="back-to-index">
+        <a href="index.html">
+            <i class="fas fa-home"></i> Back to All Lessons
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Lesson 2 content - Riemann Sums
+        const lesson2Pages = [
+            {
+                bookTitle: "Riemann Sums",
+                title: "Introduction: Approximating Areas",
+                content: `<p><strong>Riemann sums</strong> are the foundation of integration. They provide a way to approximate the area under a curve by dividing it into simple shapes (usually rectangles).</p>
+                
+                <div class="math-example">
+                    <h3>Key Idea</h3>
+                    <p>We can approximate any irregular area by dividing it into rectangles and adding up their areas. As we use more and thinner rectangles, our approximation gets better and better.</p>
+                </div>
+                
+                <h3>Basic Components</h3>
+                <p>1. <strong>Partition:</strong> Divide the interval [a, b] into n equal subintervals</p>
+                <p>2. <strong>Width:</strong> Δx = (b - a)/n</p>
+                <p>3. <strong>Sample points:</strong> Choose a point in each subinterval (left endpoint, right endpoint, or midpoint)</p>
+                <p>4. <strong>Height:</strong> f(x) at the sample point</p>
+                <p>5. <strong>Area:</strong> f(x) × Δx for each rectangle</p>
+                
+                <h3>Types of Riemann Sums</h3>
+                <p>• <strong>Left Riemann Sum:</strong> Use left endpoint of each subinterval</p>
+                <p>• <strong>Right Riemann Sum:</strong> Use right endpoint of each subinterval</p>
+                <p>• <strong>Midpoint Riemann Sum:</strong> Use midpoint of each subinterval</p>
+                <p>• <strong>Trapezoidal Rule:</strong> Average of left and right sums (uses trapezoids)</p>`
+            },
+            {
+                title: "Example 1: Left Riemann Sum",
+                content: `<h3>Problem:</h3>
+                <p>Approximate the area under f(x) = x² from x = 0 to x = 2 using 4 rectangles with left endpoints.</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Set up the partition</h3>
+                    <p>Interval: [0, 2]<br>
+                    Number of rectangles: n = 4<br>
+                    Width: Δx = (2 - 0)/4 = 0.5</p>
+                    <p>Subintervals: [0, 0.5], [0.5, 1], [1, 1.5], [1.5, 2]</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Calculate rectangle areas</h3>
+                    <p>Left endpoints: x = 0, 0.5, 1, 1.5</p>
+                    <div class="formula">Rectangle 1: f(0) × Δx = 0² × 0.5 = 0 × 0.5 = 0</div>
+                    <div class="formula">Rectangle 2: f(0.5) × Δx = (0.5)² × 0.5 = 0.25 × 0.5 = 0.125</div>
+                    <div class="formula">Rectangle 3: f(1) × Δx = 1² × 0.5 = 1 × 0.5 = 0.5</div>
+                    <div class="formula">Rectangle 4: f(1.5) × Δx = (1.5)² × 0.5 = 2.25 × 0.5 = 1.125</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Sum the areas</h3>
+                    <div class="formula">Total ≈ 0 + 0.125 + 0.5 + 1.125 = 1.75</div>
+                </div>
+                
+                <h3>Step 4 — Interpret</h3>
+                <p>The left Riemann sum approximation of ∫₀² x² dx with 4 rectangles is <strong>1.75</strong>.</p>
+                <p><em>Note: The exact area is 8/3 ≈ 2.667. Our approximation underestimates because f(x) = x² is increasing on [0, 2].</em></p>`
+            },
+            {
+                title: "Example 2: Right Riemann Sum",
+                content: `<h3>Problem:</h3>
+                <p>Approximate the area under f(x) = x² from x = 0 to x = 2 using 4 rectangles with right endpoints.</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Set up the partition</h3>
+                    <p>Interval: [0, 2]<br>
+                    Number of rectangles: n = 4<br>
+                    Width: Δx = (2 - 0)/4 = 0.5</p>
+                    <p>Subintervals: [0, 0.5], [0.5, 1], [1, 1.5], [1.5, 2]</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Calculate rectangle areas</h3>
+                    <p>Right endpoints: x = 0.5, 1, 1.5, 2</p>
+                    <div class="formula">Rectangle 1: f(0.5) × Δx = (0.5)² × 0.5 = 0.25 × 0.5 = 0.125</div>
+                    <div class="formula">Rectangle 2: f(1) × Δx = 1² × 0.5 = 1 × 0.5 = 0.5</div>
+                    <div class="formula">Rectangle 3: f(1.5) × Δx = (1.5)² × 0.5 = 2.25 × 0.5 = 1.125</div>
+                    <div class="formula">Rectangle 4: f(2) × Δx = 2² × 0.5 = 4 × 0.5 = 2</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Sum the areas</h3>
+                    <div class="formula">Total ≈ 0.125 + 0.5 + 1.125 + 2 = 3.75</div>
+                </div>
+                
+                <h3>Step 4 — Interpret</h3>
+                <p>The right Riemann sum approximation of ∫₀² x² dx with 4 rectangles is <strong>3.75</strong>.</p>
+                <p><em>Note: Compare this to our left sum of 1.75. The right sum overestimates because f(x) = x² is increasing on [0, 2]. The true area (2.667) lies between these approximations.</em></p>
+                
+                <div class="math-example">
+                    <h3>Right Riemann Sum Formula</h3>
+                    <div class="formula">R_n = Σ<sub>i=1</sub><sup>n</sup> f(a + iΔx) × Δx</div>
+                    <p>where:
+                    <br>• n = number of rectangles
+                    <br>• Δx = (b - a)/n
+                    <br>• a + iΔx = right endpoint of the i-th subinterval</p>
+                </div>`
+            },
+            {
+                title: "Example 3: Midpoint Riemann Sum",
+                content: `<h3>Problem:</h3>
+                <p>Approximate the area under f(x) = √x from x = 1 to x = 4 using 3 rectangles with midpoints.</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Set up the partition</h3>
+                    <p>Interval: [1, 4]<br>
+                    Number of rectangles: n = 3<br>
+                    Width: Δx = (4 - 1)/3 = 1</p>
+                    <p>Subintervals: [1, 2], [2, 3], [3, 4]</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Find midpoints</h3>
+                    <p>Midpoint of [1, 2]: (1 + 2)/2 = 1.5<br>
+                    Midpoint of [2, 3]: (2 + 3)/2 = 2.5<br>
+                    Midpoint of [3, 4]: (3 + 4)/2 = 3.5</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Calculate rectangle areas</h3>
+                    <div class="formula">Rectangle 1: f(1.5) × Δx = √1.5 × 1 ≈ 1.225 × 1 = 1.225</div>
+                    <div class="formula">Rectangle 2: f(2.5) × Δx = √2.5 × 1 ≈ 1.581 × 1 = 1.581</div>
+                    <div class="formula">Rectangle 3: f(3.5) × Δx = √3.5 × 1 ≈ 1.871 × 1 = 1.871</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Sum the areas</h3>
+                    <div class="formula">Total ≈ 1.225 + 1.581 + 1.871 = 4.677</div>
+                </div>
+                
+                <h3>Step 5 — Interpret</h3>
+                <p>The midpoint Riemann sum approximation of ∫₁⁴ √x dx with 3 rectangles is <strong>approximately 4.677</strong>.</p>
+                <p><em>Note: The exact area is (2/3)(4√4 - 1√1) = (2/3)(8 - 1) = 14/3 ≈ 4.667. Our approximation is quite accurate!</em></p>`
+            },
+            {
+                title: "Understanding Accuracy",
+                content: `<h3>Which Approximation is Best?</h3>
+                <p>Different Riemann sums have different accuracy:</p>
+                
+                <div class="math-example">
+                    <h3>For Increasing Functions</h3>
+                    <p>• <strong>Left sum:</strong> Underestimates the area</p>
+                    <p>• <strong>Right sum:</strong> Overestimates the area</p>
+                    <p>• <strong>Midpoint sum:</strong> Usually most accurate</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>For Decreasing Functions</h3>
+                    <p>• <strong>Left sum:</strong> Overestimates the area</p>
+                    <p>• <strong>Right sum:</strong> Underestimates the area</p>
+                    <p>• <strong>Midpoint sum:</strong> Usually most accurate</p>
+                </div>
+                
+                <h3>Error Analysis</h3>
+                <p>The error decreases as we increase n (use more rectangles):</p>
+                <div class="formula">Error ∝ 1/n</div>
+                <p>Doubling the number of rectangles roughly halves the error.</p>
+                
+                <h3>The Limit Definition</h3>
+                <p>The definite integral is defined as the limit of Riemann sums:</p>
+                <div class="formula">∫<sub>a</sub><sup>b</sup> f(x) dx = lim<sub>n→∞</sub> Σ<sub>i=1</sub><sup>n</sup> f(x<sub>i</sub>*) Δx</div>
+                <p>where x<sub>i</sub>* is any point in the i-th subinterval.</p>
+                
+                <div class="math-example">
+                    <h3>Key Insight</h3>
+                    <p>Riemann sums are not just approximations—they are the definition of the integral! The integral is what Riemann sums approach as we use infinitely many, infinitely thin rectangles.</p>
+                </div>`
+            },
+            {
+                title: "Trapezoidal Rule",
+                content: `<h3>A Better Approximation</h3>
+                <p>The trapezoidal rule uses trapezoids instead of rectangles, often giving better accuracy.</p>
+                
+                <div class="math-example">
+                    <h3>Trapezoidal Rule Formula</h3>
+                    <div class="formula">∫<sub>a</sub><sup>b</sup> f(x) dx ≈ (Δx/2)[f(x₀) + 2f(x₁) + 2f(x₂) + ... + 2f(xₙ₋₁) + f(xₙ)]</div>
+                    <p>where Δx = (b - a)/n and x₀ = a, x₁ = a + Δx, ..., xₙ = b</p>
+                </div>
+                
+                <h3>Example</h3>
+                <p>Approximate ∫₀² x² dx using trapezoidal rule with n = 4:</p>
+                <p>Δx = 0.5, points: x = 0, 0.5, 1, 1.5, 2</p>
+                <div class="formula">Area ≈ (0.5/2)[f(0) + 2f(0.5) + 2f(1) + 2f(1.5) + f(2)]</div>
+                <div class="formula">= 0.25[0 + 2(0.25) + 2(1) + 2(2.25) + 4]</div>
+                <div class="formula">= 0.25[0 + 0.5 + 2 + 4.5 + 4] = 0.25 × 11 = 2.75</div>
+                
+                <p>Compare to exact value 8/3 ≈ 2.667. Error = 0.083</p>
+                
+                <h3>Why Trapezoids Work Better</h3>
+                <p>Trapezoids fit curved boundaries better than rectangles because they can slant to follow the curve's direction.</p>
+                
+                <div class="math-example">
+                    <h3>Error Comparison (for ∫₀² x² dx with n=4)</h3>
+                    <p>Left sum: 1.75 (error: 0.917)</p>
+                    <p>Right sum: 3.75 (error: 1.083)</p>
+                    <p>Midpoint: 2.625 (error: 0.042)</p>
+                    <p>Trapezoidal: 2.75 (error: 0.083)</p>
+                    <p><em>Notice how the trapezoidal rule gives the average of left and right sums: (1.75 + 3.75)/2 = 2.75</em></p>
+                </div>`
+            },
+            {
+                title: "Summary and Practice",
+                content: `<h3>Key Concepts</h3>
+                <div class="math-example">
+                    <p>1. <strong>Riemann sums</strong> approximate areas using rectangles</p>
+                    <p>2. <strong>Left, Right, Midpoint</strong> sums use different sample points</p>
+                    <p>3. <strong>Trapezoidal rule</strong> often gives better accuracy</p>
+                    <p>4. <strong>More rectangles</strong> → better approximation</p>
+                    <p>5. <strong>The integral</strong> is the limit of Riemann sums</p>
+                </div>
+                
+                <h3>Practice Problems</h3>
+                <div class="math-example">
+                    <p><strong>Problem 1:</strong> Approximate ∫₁³ (1/x) dx using right Riemann sum with n = 4.</p>
+                    <p><em>Hint: Δx = 0.5, right endpoints: 1.5, 2, 2.5, 3</em></p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Problem 2:</strong> Use right sum with n = 3 to approximate ∫₀³ (x² + 1) dx.</p>
+                    <p><em>Hint: Δx = 1, right endpoints: 1, 2, 3</em></p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Problem 3:</strong> Compare left, right, and midpoint sums for ∫₀¹ x³ dx with n = 4.</p>
+                    <p><em>Hint: Which gives the best approximation? Why?</em></p>
+                </div>
+                
+                <h3>Formulas to Remember</h3>
+                <div class="formula">Δx = (b - a)/n</div>
+                <div class="formula">Left sum: Σ f(xₖ) Δx, xₖ = a + (k-1)Δx</div>
+                <div class="formula">Right sum: Σ f(xₖ) Δx, xₖ = a + kΔx</div>
+                <div class="formula">Midpoint sum: Σ f(mₖ) Δx, mₖ = midpoint of k-th interval</div>
+                <div class="formula">Trapezoidal: (Δx/2)[f(x₀) + 2Σ f(xₖ) + f(xₙ)]</div>
+                
+                <div class="math-example">
+                    <h3>Important Relationship</h3>
+                    <p>Trapezoidal Rule = (Left Sum + Right Sum)/2</p>
+                    <p>This explains why it's often more accurate than either left or right sums alone!</p>
+                </div>`
+            }
+        ];
+
+        // Initialize the book with Lesson 2 content
+        document.addEventListener('DOMContentLoaded', function() {
+            initBook(lesson2Pages);
+        });
+    </script>
+</body>
+</html>

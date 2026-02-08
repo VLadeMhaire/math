@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: Accumulations of Change</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Lesson 1: Exploring Accumulations of Change</h1>
+        <p>Learn how small changes accumulate over time through integration</p>
+    </div>
+    
+    <div class="book-wrapper">
+        <div class="book-container">
+            <div class="book" id="book"></div>
+            <div class="book-shadow"></div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn" id="prev-btn">
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        
+        <div class="page-indicator">
+            Page <span id="current-page">1</span> of <span id="total-pages">8</span>
+        </div>
+        
+        <button class="btn" id="next-btn">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+    
+    <div class="instructions">
+        <p><i class="fas fa-mouse-pointer"></i> Click on the right edge of a page to flip forward, or the left edge to flip backward</p>
+        <p><i class="fas fa-book"></i> You can also use the navigation buttons or keyboard arrows (← →)</p>
+    </div>
+    
+    <div class="back-to-index">
+        <a href="index.html">
+            <i class="fas fa-home"></i> Back to All Lessons
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Lesson 1 content - Accumulations of Change
+        const lesson1Pages = [
+            {
+                bookTitle: "Accumulations of Change",
+                title: "Introduction: Accumulations of Changes",
+                content: `<p>The idea of <strong>accumulations of changes</strong> is one of the most powerful concepts in mathematics. It helps us answer this fundamental question:</p>
+                <div class="math-example">
+                    <p><strong>If you know HOW FAST something is changing, can you figure out HOW MUCH total change has happened?</strong></p>
+                </div>
+                <h3>Think of it like this:</h3>
+                <p>1. <strong>Rate of change</strong> = speed, cost per item, growth per day, etc.<br>
+                   &nbsp;&nbsp;&nbsp;(How fast something is piling up or being used)</p>
+                <p>2. <strong>Small change</strong> = rate × a tiny bit of time (or quantity)<br>
+                   &nbsp;&nbsp;&nbsp;Example: If speed is 60 mph for 0.1 hour, distance added = 60 × 0.1 = 6 miles</p>
+                <p>3. <strong>Accumulation</strong> = Add up <em>all</em> those small changes<br>
+                   &nbsp;&nbsp;&nbsp;This adding-up is what <strong>integration</strong> does in calculus</p>
+                <h3>Visual Example</h3>
+                <p>Imagine a car's speedometer (rate of change). The odometer (total distance) is just the <strong>accumulation of all speed × time slices</strong>. Integration is the math version of the odometer's job.</p>`
+            },
+            {
+                title: "Example 1: Distance from Speed",
+                content: `<h3>Problem:</h3>
+                <p>A car moves with velocity <em>v(t) = 2t</em> (in meters/second), where <em>t</em> is time in seconds. Find the distance traveled between <em>t = 0</em> and <em>t = 5</em> seconds.</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Understand the accumulation idea</h3>
+                    <p>Velocity is the <strong>rate of change</strong> of position.<br>
+                    Small change in position over a tiny time interval <em>dt</em> is:<br>
+                    <div class="formula">d(distance) = v(t) × dt</div></p>
+                    <p>To accumulate (add up) all these small position changes from <em>t = 0</em> to <em>t = 5</em> means <strong>integrating v(t)</strong>.</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Set up the integral</h3>
+                    <div class="formula">Distance = ∫<sub>0</sub><sup>5</sup> v(t) dt = ∫<sub>0</sub><sup>5</sup> 2t dt</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Evaluate</h3>
+                    <div class="formula">∫ 2t dt = t² + C</div>
+                    <p>So:</p>
+                    <div class="formula">[t²]<sub>0</sub><sup>5</sup> = 5² - 0² = 25</div>
+                </div>
+                
+                <h3>Step 4 — Interpret</h3>
+                <p>The accumulated distance traveled = <strong>25 meters</strong>.</p>
+                <p>This is a basic example: <strong>rate of change (velocity) integrated over time → net accumulation (distance)</strong>.</p>`
+            },
+            {
+                title: "Example 2: Total Cost from Marginal Cost",
+                content: `<h3>Problem:</h3>
+                <p>A factory's <strong>marginal cost</strong> <em>C'(x)</em> (in dollars per item) to produce the <em>x</em>-th item is <em>C'(x) = 50 - 0.1x</em>. Find the total increase in cost from producing 10 items to producing 40 items.</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Understand the accumulation idea</h3>
+                    <p>Marginal cost is the <strong>derivative</strong> of total cost <em>C(x)</em> with respect to number of items <em>x</em>.<br>
+                    The extra cost for an additional <em>dx</em> items ≈ <em>C'(x) × dx</em>.<br>
+                    Accumulating from <em>x = 10</em> to <em>x = 40</em> gives the increase in total cost over that range.</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Set up the integral</h3>
+                    <div class="formula">Increase in total cost = ∫<sub>10</sub><sup>40</sup> C'(x) dx = ∫<sub>10</sub><sup>40</sup> (50 - 0.1x) dx</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Evaluate</h3>
+                    <div class="formula">∫ (50 - 0.1x) dx = 50x - 0.1 × (x²/2) + k = 50x - 0.05x² + k</div>
+                    <p>Evaluate definite integral:</p>
+                    <div class="formula">[50x - 0.05x²]<sub>10</sub><sup>40</sup></div>
+                    <p>First at <em>x = 40</em>:<br>
+                    50(40) - 0.05(1600) = 2000 - 80 = 1920</p>
+                    <p>Then at <em>x = 10</em>:<br>
+                    50(10) - 0.05(100) = 500 - 5 = 495</p>
+                    <p>Subtract:</p>
+                    <div class="formula">1920 - 495 = 1425</div>
+                </div>
+                
+                <h3>Step 4 — Interpret</h3>
+                <p>Total additional cost going from production level 10 items to 40 items = <strong>$1,425</strong>.</p>
+                <p>Again: <strong>rate of change (marginal cost) integrated over quantity → total accumulation (cost increase)</strong>.</p>`
+            },
+            {
+    title: "Example 3: Piecewise Constant Velocity",
+    content: `<h3>Graphical Problem:</h3>
+    <p>Velocity <em>v(t)</em> (m/s) vs. time <em>t</em> (s) is piecewise constant:</p>
+    <div class="formula">
+        <div style="text-align: center; font-family: 'Cambria Math', serif;">
+            v(t) = 
+            <table style="display: inline-table; vertical-align: middle; margin: 0 10px;">
+                <tr>
+                    <td style="border-left: 2px solid #333; border-right: 2px solid #333; padding: 0 10px; text-align: center;">2</td>
+                    <td style="padding-left: 10px;">0 ≤ t < 3</td>
+                </tr>
+                <tr>
+                    <td style="border-left: 2px solid #333; border-right: 2px solid #333; padding: 0 10px; text-align: center;">-1</td>
+                    <td style="padding-left: 10px;">3 ≤ t < 7</td>
+                </tr>
+                <tr>
+                    <td style="border-left: 2px solid #333; border-right: 2px solid #333; padding: 0 10px; text-align: center;">0</td>
+                    <td style="padding-left: 10px;">t ≥ 7</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <p>Initial position: <em>x(0) = 1 m</em>.<br>Find position at <em>t = 7 s</em>.</p>
+    
+    <!-- Rest of the content remains the same -->
+    <div class="math-example">
+        <h3>Step 1 — Graphical interpretation</h3>
+        <p>The graph has horizontal segments:<br>
+        • From t=0 to 3: rectangle height 2 (positive)<br>
+        • From t=3 to 7: rectangle height -1 (negative)<br>
+        • After t=7: height 0</p>
+        <p>Position change = area under v(t) curve (signed area).</p>
+    </div>
+    
+    <div class="math-example">
+        <h3>Step 2 — Calculate accumulated change</h3>
+        <div class="formula">Δx = ∫<sub>0</sub><sup>7</sup> v(t) dt</div>
+        <p>For piecewise constant function:</p>
+        <div class="formula">
+            ∫<sub>0</sub><sup>3</sup> 2 dt = 2 × 3 = 6<br>
+            ∫<sub>3</sub><sup>7</sup> (-1) dt = (-1) × 4 = -4
+        </div>
+        <div class="formula">Δx = 6 + (-4) = 2 m</div>
+    </div>
+    
+    <div class="math-example">
+        <h3>Step 3 — Add initial position</h3>
+        <div class="formula">x(7) = x(0) + Δx = 1 + 2 = 3 m</div>
+    </div>
+    
+    <h3>Step 4 — Interpret graphically</h3>
+    <p>The net area under the velocity graph = 2 m of forward motion.<br>
+    Initial position adds 1 m, so final position = 3 m from origin.</p>
+    <p><strong>Key Insight:</strong> Areas above t-axis add; areas below subtract.</p>`
+},
+            {
+                title: "Example 4: Triangular Rate Function",
+                content: `<h3>Graphical Problem:</h3>
+                <p>Water flows into a tank at rate <em>f(t)</em> (L/min) with triangular graph:</p>
+                <div class="formula">
+                • f(0) = 0<br>
+                • Increases linearly to f(4) = 8<br>
+                • Decreases linearly to f(10) = 0
+                </div>
+                <p>Tank starts empty. How much water at t = 10 min?</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Understand the graph shape</h3>
+                    <p>The rate graph forms a triangle:<br>
+                    • Peak at t=4, f=8<br>
+                    • Base from t=0 to t=10<br>
+                    Total volume = area under f(t) curve.</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Calculate area in two parts</h3>
+                    <p><strong>From t=0 to t=4:</strong> Right triangle, base=4, height=8</p>
+                    <div class="formula">Area₁ = ½ × 4 × 8 = 16 L</div>
+                    
+                    <p><strong>From t=4 to t=10:</strong> Right triangle, base=6, height=8</p>
+                    <div class="formula">Area₂ = ½ × 6 × 8 = 24 L</div>
+                    
+                    <p>Or recognize whole triangle: base=10, height=8</p>
+                    <div class="formula">Total area = ½ × 10 × 8 = 40 L</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Alternative calculus method</h3>
+                    <p>For t=0 to 4: f(t) = 2t (slope = 8/4 = 2)</p>
+                    <div class="formula">∫<sub>0</sub><sup>4</sup> 2t dt = [t²]<sub>0</sub><sup>4</sup> = 16</div>
+                    
+                    <p>For t=4 to 10: f(t) = 8 - (4/3)(t-4) (slope = -8/6 = -4/3)</p>
+                    <div class="formula">∫<sub>4</sub><sup>10</sup> [8 - (4/3)(t-4)] dt</div>
+                    <p>Let u = t-4, then:</p>
+                    <div class="formula">∫<sub>0</sub><sup>6</sup> [8 - (4/3)u] du = [8u - (2/3)u²]<sub>0</sub><sup>6</sup><br>
+                    = 48 - 24 = 24</div>
+                </div>
+                
+                <h3>Step 4 — Total accumulation</h3>
+                <div class="formula">V(10) = 16 + 24 = 40 L</div>
+                <p><strong>Visual takeaway:</strong> The area under the triangular rate graph gives total accumulated water.</p>`
+            },
+            {
+                title: "The Fundamental Connection",
+                content: `<h3>Rate of Change ↔ Accumulation</h3>
+                <p>These examples reveal the beautiful symmetry in calculus:</p>
+                
+                <div class="math-example">
+                    <h3>Derivative (Differentiation)</h3>
+                    <div class="formula">Given: Total amount<br>
+                    Find: Rate of change</div>
+                    <p><strong>Example:</strong> From distance function → find velocity</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Integral (Integration)</h3>
+                    <div class="formula">Given: Rate of change<br>
+                    Find: Total accumulation</div>
+                    <p><strong>Example:</strong> From velocity → find distance traveled</p>
+                </div>
+                
+                <h3>The Fundamental Theorem of Calculus</h3>
+                <p>This connection is formalized in one of the most important theorems in mathematics:</p>
+                <div class="formula">∫<sub>a</sub><sup>b</sup> f'(x) dx = f(b) - f(a)</div>
+                <p>In words: <em>The accumulation of the rate of change of f from a to b equals the total change in f from a to b.</em></p>
+                
+                <h3>Real-World Applications</h3>
+                <p>This idea appears everywhere:</p>
+                <p>• <strong>Physics:</strong> Velocity → Distance; Acceleration → Velocity</p>
+                <p>• <strong>Economics:</strong> Marginal cost → Total cost; Marginal revenue → Total revenue</p>
+                <p>• <strong>Biology:</strong> Growth rate → Total population</p>
+                <p>• <strong>Engineering:</strong> Flow rate → Total volume</p>`
+            },
+            {
+                title: "Visualizing Accumulation",
+                content: `<h3>The Area Interpretation</h3>
+                <p>Integration as accumulation has a beautiful geometric interpretation:</p>
+                
+                <div class="math-example">
+                    <h3>Area Under a Curve</h3>
+                    <p>The integral ∫<sub>a</sub><sup>b</sup> f(x) dx represents the <strong>area under the curve y = f(x)</strong> from x = a to x = b.</p>
+                    <p>Why? Because each thin rectangle has area = height × width = f(x) × dx. Adding up all these rectangles gives the total area (total accumulation).</p>
+                </div>
+                
+                <h3>Example Revisited: Distance from Speed</h3>
+                <p>For <em>v(t) = 2t</em>:</p>
+                <p>The area under the velocity curve from t=0 to t=5 is a triangle:</p>
+                <div class="formula">Area = ½ × base × height = ½ × 5 × 10 = 25</div>
+                <p>This matches our calculation! The area under the velocity curve equals the distance traveled.</p>
+                
+                <div class="math-example">
+                    <h3>Key Insight</h3>
+                    <p><strong>Integration = Adding up infinitely many infinitely thin rectangles</strong><br>
+                    This solves the accumulation problem precisely.</p>
+                </div>
+                
+                <h3>Net vs. Total Accumulation</h3>
+                <p>Important distinction:</p>
+                <p>• <strong>Net accumulation:</strong> ∫<sub>a</sub><sup>b</sup> f(x) dx (can be positive or negative)</p>
+                <p>• <strong>Total accumulation:</strong> ∫<sub>a</sub><sup>b</sup> |f(x)| dx (always positive, sum of all changes)</p>
+                <p>Example: If velocity goes negative (moving backward), net distance might be less than total distance traveled.</p>`
+            },
+            {
+                title: "Summary and Practice",
+                content: `<h3>Core Principle</h3>
+                <div class="math-example">
+                    <p><strong>Rate of Change → Integrated over interval → Total Accumulation</strong></p>
+                </div>
+                
+                <h3>Step-by-Step Process</h3>
+                <p>1. <strong>Identify the rate function</strong> (what's changing per unit)</p>
+                <p>2. <strong>Set up the integral</strong> over the interval of interest</p>
+                <p>3. <strong>Evaluate the integral</strong> (find the antiderivative)</p>
+                <p>4. <strong>Interpret the result</strong> in context</p>
+                
+                <h3>Try It Yourself</h3>
+                <div class="math-example">
+                    <p><strong>Practice Problem 1:</strong><br>
+                    Water flows into a tank at rate <em>r(t) = 3t²</em> liters/minute. How much water accumulates from t=1 to t=4 minutes?</p>
+                    <p><em>Hint: Accumulation = ∫<sub>1</sub><sup>4</sup> 3t² dt</em></p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Practice Problem 2:</strong><br>
+                    A population grows at rate <em>P'(t) = 100e<sup>0.02t</sup></em> people/year. Find the total population growth from year 0 to year 10.</p>
+                </div>
+                
+                <h3>Key Formulas</h3>
+                <div class="formula">Distance from velocity: ∫ v(t) dt</div>
+                <div class="formula">Total cost from marginal cost: ∫ C'(x) dx</div>
+                <div class="formula">Net change from rate: ∫<sub>a</sub><sup>b</sup> f'(x) dx = f(b) - f(a)</div>
+                
+                <p>Remember: Integration turns "how fast" into "how much" by accumulating all the tiny changes.</p>`
+            }
+        ];
+
+        // Initialize the book with Lesson 1 content
+        document.addEventListener('DOMContentLoaded', function() {
+            initBook(lesson1Pages);
+        });
+    </script>
+</body>
+</html>
