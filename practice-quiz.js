@@ -1,3 +1,41 @@
+// Add neon effects to practice page
+function addPracticeNeonEffects() {
+    const practiceContainer = document.querySelector('.practice-container');
+    if (!practiceContainer) return;
+    
+    // Create additional neon orbs specifically for practice page
+    const neonBg = document.querySelector('.neon-bg');
+    if (neonBg) {
+        const practiceOrbs = document.createElement('div');
+        practiceOrbs.className = 'practice-neon-orbs';
+        practiceOrbs.style.position = 'fixed';
+        practiceOrbs.style.top = '0';
+        practiceOrbs.style.left = '0';
+        practiceOrbs.style.width = '100%';
+        practiceOrbs.style.height = '100%';
+        practiceOrbs.style.zIndex = '-1';
+        practiceOrbs.style.pointerEvents = 'none';
+        
+        // Add special practice-themed particles
+        for (let i = 0; i < 8; i++) {
+            const orb = document.createElement('div');
+            orb.style.position = 'absolute';
+            orb.style.width = `${Math.random() * 40 + 20}px`;
+            orb.style.height = orb.style.width;
+            orb.style.background = `radial-gradient(circle, rgba(${Math.random() * 100}, ${150 + Math.random() * 105}, 255, 0.2), transparent 70%)`;
+            orb.style.borderRadius = '50%';
+            orb.style.filter = 'blur(15px)';
+            orb.style.left = `${Math.random() * 100}%`;
+            orb.style.top = `${Math.random() * 100}%`;
+            orb.style.animation = `float ${15 + Math.random() * 20}s infinite linear`;
+            orb.style.animationDelay = `-${Math.random() * 20}s`;
+            practiceOrbs.appendChild(orb);
+        }
+        
+        neonBg.appendChild(practiceOrbs);
+    }
+}
+
 // Quiz Data - 20 questions for each of the 10 topics (200 total questions)
 const quizData = {
     "topic1": {
@@ -2290,6 +2328,9 @@ const retakeQuizBtn = document.getElementById('retakeQuizBtn');
 
 // Initialize the page
 function initPage() {
+    // Add practice-specific neon effects
+    addPracticeNeonEffects();
+    
     // Create topic buttons
     const topics = [
         { id: "topic1", title: "Accumulations of Change" },
@@ -2307,9 +2348,23 @@ function initPage() {
     topics.forEach(topic => {
         const button = document.createElement('button');
         button.className = 'topic-btn';
-        button.textContent = topic.title;
+        button.innerHTML = `<i class="fas fa-play-circle"></i> ${topic.title}`;
         button.dataset.topic = topic.id;
         button.addEventListener('click', () => selectTopic(topic.id));
+        
+        // Add neon hover effect
+        button.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('active')) {
+                this.style.boxShadow = '0 0 15px rgba(0, 195, 255, 0.3)';
+            }
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('active')) {
+                this.style.boxShadow = '';
+            }
+        });
+        
         topicSelector.appendChild(button);
     });
     
@@ -2320,15 +2375,35 @@ function initPage() {
     // Add navigation button event listeners
     prevBtn.addEventListener('click', prevQuestion);
     nextBtn.addEventListener('click', nextQuestion);
+    
+    // Add animation to quiz container
+    const quizContainer = document.getElementById('quizContainer');
+    if (quizContainer) {
+        quizContainer.style.opacity = '0';
+        quizContainer.style.transform = 'translateY(30px) scale(0.95)';
+        
+        setTimeout(() => {
+            quizContainer.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            quizContainer.style.opacity = '1';
+            quizContainer.style.transform = 'translateY(0) scale(1)';
+        }, 300);
+    }
 }
 
 // Select a topic
 function selectTopic(topicId) {
-    // Update active button
-    document.querySelectorAll('.topic-btn').forEach(btn => {
+    // Add selection animation
+    const buttons = document.querySelectorAll('.topic-btn');
+    buttons.forEach(btn => {
         btn.classList.remove('active');
+        btn.style.transform = '';
+        btn.style.boxShadow = '';
     });
-    document.querySelector(`[data-topic="${topicId}"]`).classList.add('active');
+    
+    const selectedBtn = document.querySelector(`[data-topic="${topicId}"]`);
+    selectedBtn.classList.add('active');
+    selectedBtn.style.transform = 'scale(1.05)';
+    selectedBtn.style.boxShadow = '0 0 20px rgba(0, 195, 255, 0.5)';
     
     // Reset quiz state
     currentTopic = topicId;
@@ -2346,6 +2421,9 @@ function selectTopic(topicId) {
     showExplanationBtn.style.display = 'none';
     explanation.style.display = 'none';
     
+    // Add neon glow to quiz title
+    quizTitle.style.textShadow = '0 0 15px rgba(0, 195, 255, 0.5)';
+    
     // Load first question
     loadQuestion();
 }
@@ -2357,8 +2435,9 @@ function loadQuestion() {
     const topic = quizData[currentTopic];
     const question = topic.questions[currentQuestion];
     
-    // Update progress
+    // Update progress with neon effect
     quizProgress.textContent = `Question ${currentQuestion + 1}/${topic.questions.length}`;
+    quizProgress.style.textShadow = '0 0 10px rgba(0, 195, 255, 0.3)';
     
     // Update question text
     questionText.textContent = question.question;
@@ -2368,6 +2447,10 @@ function loadQuestion() {
     question.options.forEach((option, index) => {
         const optionElement = document.createElement('div');
         optionElement.className = 'option';
+        optionElement.innerHTML = `
+            <span style="font-weight: bold; color: #00c3ff; margin-right: 10px;">${String.fromCharCode(65 + index)}.</span>
+            <span>${option}</span>
+        `;
         
         // Check if user has already selected this option
         if (userAnswers[currentQuestion] === index) {
@@ -2388,8 +2471,23 @@ function loadQuestion() {
             optionElement.classList.add('correct');
         }
         
-        optionElement.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
         optionElement.addEventListener('click', () => selectOption(index));
+        
+        // Add hover effect
+        optionElement.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('selected') && !quizCompleted) {
+                this.style.transform = 'translateY(-3px)';
+                this.style.boxShadow = '0 5px 15px rgba(0, 195, 255, 0.2)';
+            }
+        });
+        
+        optionElement.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('selected') && !quizCompleted) {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            }
+        });
+        
         optionsContainer.appendChild(optionElement);
     });
     
@@ -2402,20 +2500,24 @@ function loadQuestion() {
     prevBtn.disabled = currentQuestion === 0;
     
     if (quizCompleted) {
-        nextBtn.textContent = currentQuestion === topic.questions.length - 1 ? 'See Results' : 'Next Question';
+        nextBtn.innerHTML = currentQuestion === topic.questions.length - 1 ? 
+            '<i class="fas fa-chart-bar"></i> See Results' : 
+            '<i class="fas fa-arrow-right"></i> Next Question';
         nextBtn.disabled = false;
         showExplanationBtn.style.display = 'inline-flex';
     } else {
         nextBtn.disabled = userAnswers[currentQuestion] === null;
-        nextBtn.textContent = currentQuestion === topic.questions.length - 1 ? 'Submit Quiz' : 'Next Question';
+        nextBtn.innerHTML = currentQuestion === topic.questions.length - 1 ? 
+            '<i class="fas fa-paper-plane"></i> Submit Quiz' : 
+            '<i class="fas fa-arrow-right"></i> Next Question';
         showExplanationBtn.style.display = 'none';
     }
     
     // Update hint
     if (userAnswers[currentQuestion] !== null) {
-        hint.innerHTML = `<i class="fas fa-check-circle"></i> Answer selected. Click Next to continue.`;
+        hint.innerHTML = `<i class="fas fa-check-circle" style="color: #2ecc71;"></i> Answer selected. Click Next to continue.`;
     } else {
-        hint.innerHTML = `<i class="fas fa-lightbulb"></i> Select an answer to continue`;
+        hint.innerHTML = `<i class="fas fa-lightbulb" style="color: #f1c40f;"></i> Select an answer to continue`;
     }
 }
 
@@ -2429,16 +2531,24 @@ function selectOption(index) {
     const options = document.querySelectorAll('.option');
     options.forEach((opt, i) => {
         opt.classList.remove('selected');
+        opt.style.transform = '';
+        opt.style.boxShadow = '';
         if (i === index) {
             opt.classList.add('selected');
+            // Add selection animation
+            opt.style.animation = 'pulse 0.3s ease';
+            setTimeout(() => {
+                opt.style.animation = '';
+            }, 300);
         }
     });
     
     // Enable next button
     nextBtn.disabled = false;
+    nextBtn.style.transform = 'scale(1.05)';
     
     // Update hint
-    hint.innerHTML = `<i class="fas fa-check-circle"></i> Answer selected. Click Next to continue.`;
+    hint.innerHTML = `<i class="fas fa-check-circle" style="color: #2ecc71;"></i> Answer selected. Click Next to continue.`;
 }
 
 // Navigate to next question
@@ -2450,6 +2560,17 @@ function nextQuestion() {
     if (currentQuestion < topic.questions.length - 1) {
         currentQuestion++;
         loadQuestion();
+        
+        // Add page transition animation
+        const questionBox = document.querySelector('.question-box');
+        questionBox.style.opacity = '0';
+        questionBox.style.transform = 'translateX(20px)';
+        
+        setTimeout(() => {
+            questionBox.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            questionBox.style.opacity = '1';
+            questionBox.style.transform = 'translateX(0)';
+        }, 50);
     } else {
         // Last question - submit quiz
         submitQuiz();
@@ -2461,6 +2582,17 @@ function prevQuestion() {
     if (currentQuestion > 0) {
         currentQuestion--;
         loadQuestion();
+        
+        // Add page transition animation
+        const questionBox = document.querySelector('.question-box');
+        questionBox.style.opacity = '0';
+        questionBox.style.transform = 'translateX(-20px)';
+        
+        setTimeout(() => {
+            questionBox.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            questionBox.style.opacity = '1';
+            questionBox.style.transform = 'translateX(0)';
+        }, 50);
     }
 }
 
@@ -2486,51 +2618,69 @@ function submitQuiz() {
 // Show results
 function showResults() {
     const topic = quizData[currentTopic];
+    const totalQuestions = topic.questions.length;
+    const percentage = (score / totalQuestions) * 100;
     
     // Update results display
     finalScore.textContent = score;
-    scoreDisplay.textContent = `${score}/${topic.questions.length} Correct`;
+    scoreDisplay.textContent = `${score}/${totalQuestions} Correct`;
     
     // Set results message based on score
     let message = '';
-    if (score === topic.questions.length) {
-        message = 'Perfect score! You\'ve mastered this topic! 🎉';
-    } else if (score >= topic.questions.length * 0.9) {
+    let messageColor = '#b3e0ff';
+    
+    if (percentage === 100) {
+        message = '🎉 Perfect score! You\'ve mastered this topic! 🎉';
+        messageColor = '#2ecc71';
+    } else if (percentage >= 90) {
         message = 'Outstanding! You have excellent understanding of this topic.';
-    } else if (score >= topic.questions.length * 0.8) {
+        messageColor = '#2ecc71';
+    } else if (percentage >= 80) {
         message = 'Excellent work! You have a strong understanding of this topic.';
-    } else if (score >= topic.questions.length * 0.7) {
+        messageColor = '#2ecc71';
+    } else if (percentage >= 70) {
         message = 'Good job! You understand most concepts but could review a few areas.';
-    } else if (score >= topic.questions.length * 0.6) {
+        messageColor = '#f1c40f';
+    } else if (percentage >= 60) {
         message = 'Fair understanding. Review the materials and try again for better results.';
+        messageColor = '#f1c40f';
     } else {
         message = 'Keep practicing! Review the lesson materials and try again.';
+        messageColor = '#e74c3c';
     }
+    
     resultsMessage.textContent = message;
+    resultsMessage.style.color = messageColor;
     
     // Update statistics
     correctCount.textContent = score;
-    incorrectCount.textContent = topic.questions.length - score;
-    const accuracy = Math.round((score / topic.questions.length) * 100);
+    incorrectCount.textContent = totalQuestions - score;
+    const accuracy = Math.round(percentage);
     accuracyPercent.textContent = `${accuracy}%`;
     
     // Update circle visualization
     const scoreCircle = document.querySelector('.score-circle');
-    const percentage = (score / topic.questions.length) * 100;
-    scoreCircle.style.background = `conic-gradient(#2ecc71 0% ${percentage}%, #e74c3c ${percentage}% 100%)`;
+    scoreCircle.style.background = `conic-gradient(
+        #2ecc71 0% ${percentage}%,
+        #e74c3c ${percentage}% 100%
+    )`;
     
     // Show results, hide quiz
     document.getElementById('quizContainer').style.display = 'none';
     resultsContainer.style.display = 'block';
     
-    // Animate results
+    // Animate results with neon effects
     resultsContainer.style.opacity = '0';
-    resultsContainer.style.transform = 'translateY(20px)';
+    resultsContainer.style.transform = 'scale(0.9) translateY(30px)';
     
     setTimeout(() => {
-        resultsContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        resultsContainer.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
         resultsContainer.style.opacity = '1';
-        resultsContainer.style.transform = 'translateY(0)';
+        resultsContainer.style.transform = 'scale(1) translateY(0)';
+        
+        // Add glowing effect to score
+        scoreDisplay.style.animation = 'pulse 2s infinite';
+        finalScore.style.animation = 'pulse 2s infinite';
     }, 100);
 }
 
@@ -2545,15 +2695,42 @@ function toggleExplanation() {
         explanationText.textContent = question.explanation;
         explanation.style.display = 'block';
         showExplanationBtn.innerHTML = '<i class="fas fa-times-circle"></i> Hide Explanation';
+        
+        // Add reveal animation
+        explanation.style.opacity = '0';
+        explanation.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            explanation.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            explanation.style.opacity = '1';
+            explanation.style.transform = 'translateY(0)';
+        }, 10);
     }
 }
 
 // Retake quiz
 function retakeQuiz() {
     if (currentTopic) {
-        selectTopic(currentTopic);
+        // Add retake animation
+        resultsContainer.style.opacity = '0';
+        resultsContainer.style.transform = 'scale(0.9)';
+        
+        setTimeout(() => {
+            selectTopic(currentTopic);
+        }, 300);
     }
 }
+
+// Add CSS animation for pulse
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes pulse {
+        0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+        50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+        100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+    }
+`;
+document.head.appendChild(style);
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', initPage);
