@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6: FTC and Definite Integrals</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Lesson 6: The Fundamental Theorem and Definite Integrals</h1>
+        <p>Applying FTC to evaluate definite integrals with complete solutions</p>
+    </div>
+    
+    <div class="book-wrapper">
+        <div class="book-container">
+            <div class="book" id="book"></div>
+            <div class="book-shadow"></div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn" id="prev-btn">
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        
+        <div class="page-indicator">
+            Page <span id="current-page">1</span> of <span id="total-pages">6</span>
+        </div>
+        
+        <button class="btn" id="next-btn">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+    
+    <div class="instructions">
+        <p><i class="fas fa-mouse-pointer"></i> Click on the right edge of a page to flip forward, or the left edge to flip backward</p>
+        <p><i class="fas fa-book"></i> You can also use the navigation buttons or keyboard arrows (← →)</p>
+    </div>
+    
+    <div class="back-to-index">
+        <a href="index.html">
+            <i class="fas fa-home"></i> Back to All Lessons
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Lesson 6 content - FTC and Definite Integrals
+        const lesson6Pages = [
+            {
+                bookTitle: "FTC and Definite Integrals",
+                title: "The Fundamental Theorem of Calculus",
+                content: `<h3>Part 1: Connecting Derivatives and Integrals</h3>
+                <p>The Fundamental Theorem of Calculus (FTC) is the bridge between differential and integral calculus. It comes in two parts:</p>
+                
+                <div class="math-example">
+                    <h3>FTC Part 1</h3>
+                    <div class="formula">d/dx [∫<sub>a</sub><sup>x</sup> f(t) dt] = f(x)</div>
+                    <p>If f is continuous on [a,b], then the function defined by:</p>
+                    <div class="formula">g(x) = ∫<sub>a</sub><sup>x</sup> f(t) dt</div>
+                    <p>is continuous on [a,b], differentiable on (a,b), and g'(x) = f(x).</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>FTC Part 2 (Evaluation Theorem)</h3>
+                    <div class="formula">∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) - F(a)</div>
+                    <p>If F is any antiderivative of f (i.e., F'(x) = f(x)), then the definite integral equals the difference of F at the endpoints.</p>
+                </div>
+                
+                <h3>Why This Matters</h3>
+                <p>Before FTC, computing areas under curves was incredibly difficult. FTC gives us a straightforward method:</p>
+                <p>1. Find an antiderivative F(x)<br>
+                2. Evaluate F(b) - F(a)<br>
+                3. That's the definite integral!</p>
+                
+                <h3>Notation</h3>
+                <div class="formula">[F(x)]<sub>a</sub><sup>b</sup> = F(b) - F(a)</div>
+                <p>The vertical bar notation means "evaluate at b, evaluate at a, and subtract."</p>`
+            },
+            {
+                title: "Example 1: Basic Definite Integral",
+                content: `<h3>Problem:</h3>
+                <p>Evaluate ∫<sub>1</sub><sup>4</sup> (3x² + 2x - 1) dx</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Find the antiderivative</h3>
+                    <p>For ∫ (3x² + 2x - 1) dx, find F(x) such that F'(x) = 3x² + 2x - 1.</p>
+                    <div class="formula">F(x) = x³ + x² - x + C</div>
+                    <p>Using power rule: ∫3x² dx = x³, ∫2x dx = x², ∫(-1) dx = -x</p>
+                    <p>The constant C will cancel when we compute F(4) - F(1).</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Apply FTC Part 2</h3>
+                    <div class="formula">∫<sub>1</sub><sup>4</sup> (3x² + 2x - 1) dx = [x³ + x² - x]<sub>1</sub><sup>4</sup></div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Evaluate at endpoints</h3>
+                    <p>At x = 4:</p>
+                    <div class="formula">F(4) = 4³ + 4² - 4 = 64 + 16 - 4 = 76</div>
+                    <p>At x = 1:</p>
+                    <div class="formula">F(1) = 1³ + 1² - 1 = 1 + 1 - 1 = 1</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Subtract</h3>
+                    <div class="formula">F(4) - F(1) = 76 - 1 = 75</div>
+                </div>
+                
+                <h3>Step 5 — Interpret</h3>
+                <p>The net area under the curve y = 3x² + 2x - 1 from x = 1 to x = 4 is <strong>75 square units</strong>.</p>
+                
+                <div class="math-example">
+                    <h3>Check with FTC Part 1</h3>
+                    <p>If g(x) = ∫<sub>1</sub><sup>x</sup> (3t² + 2t - 1) dt, then by FTC Part 1:</p>
+                    <div class="formula">g'(x) = 3x² + 2x - 1</div>
+                    <p>Indeed, the derivative of our antiderivative returns the original integrand.</p>
+                </div>`
+            },
+            {
+                title: "Example 2: Exponential Function",
+                content: `<h3>Problem:</h3>
+                <p>Evaluate ∫<sub>0</sub><sup>ln5</sup> 2e<sup>2x</sup> dx</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Find the antiderivative</h3>
+                    <p>Recall: ∫ e<sup>kx</sup> dx = (1/k)e<sup>kx</sup> + C</p>
+                    <p>Here, k = 2, so:</p>
+                    <div class="formula">∫ 2e<sup>2x</sup> dx = 2 × (1/2)e<sup>2x</sup> + C = e<sup>2x</sup> + C</div>
+                    <p>Check: d/dx [e<sup>2x</sup>] = 2e<sup>2x</sup> ✓</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Apply FTC Part 2</h3>
+                    <div class="formula">∫<sub>0</sub><sup>ln5</sup> 2e<sup>2x</sup> dx = [e<sup>2x</sup>]<sub>0</sub><sup>ln5</sup></div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Evaluate at endpoints</h3>
+                    <p>At x = ln5:</p>
+                    <div class="formula">e<sup>2·ln5</sup> = e<sup>ln(5²)</sup> = e<sup>ln25</sup> = 25</div>
+                    <p>Using property: e<sup>ln a</sup> = a</p>
+                    
+                    <p>At x = 0:</p>
+                    <div class="formula">e<sup>2·0</sup> = e<sup>0</sup> = 1</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Subtract</h3>
+                    <div class="formula">F(ln5) - F(0) = 25 - 1 = 24</div>
+                </div>
+                
+                <h3>Step 5 — Interpret</h3>
+                <p>The net area under y = 2e<sup>2x</sup> from x = 0 to x = ln5 is <strong>24 square units</strong>.</p>
+                
+                <div class="math-example">
+                    <h3>Alternative Approach</h3>
+                    <p>We could also use substitution: Let u = 2x, then du = 2dx, so dx = du/2.</p>
+                    <div class="formula">∫ 2e<sup>2x</sup> dx = ∫ e<sup>u</sup> du = e<sup>u</sup> + C = e<sup>2x</sup> + C</div>
+                    <p>Same result! Multiple methods often lead to the same answer.</p>
+                </div>`
+            },
+            {
+                title: "Properties of Definite Integrals",
+                content: `<h3>Working with Definite Integrals</h3>
+                <p>Definite integrals have several important properties that follow from FTC and basic algebra:</p>
+                
+                <div class="math-example">
+                    <h3>1. Reversal of Limits</h3>
+                    <div class="formula">∫<sub>b</sub><sup>a</sup> f(x) dx = -∫<sub>a</sub><sup>b</sup> f(x) dx</div>
+                    <p>Proof: F(a) - F(b) = -[F(b) - F(a)]</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>2. Additivity Over Intervals</h3>
+                    <div class="formula">∫<sub>a</sub><sup>b</sup> f(x) dx + ∫<sub>b</sub><sup>c</sup> f(x) dx = ∫<sub>a</sub><sup>c</sup> f(x) dx</div>
+                    <p>Proof: [F(b) - F(a)] + [F(c) - F(b)] = F(c) - F(a)</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>3. Constant Multiple</h3>
+                    <div class="formula">∫<sub>a</sub><sup>b</sup> k·f(x) dx = k·∫<sub>a</sub><sup>b</sup> f(x) dx</div>
+                    <p>Proof: k[F(b) - F(a)] = kF(b) - kF(a)</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>4. Sum/Difference</h3>
+                    <div class="formula">∫<sub>a</sub><sup>b</sup> [f(x) ± g(x)] dx = ∫<sub>a</sub><sup>b</sup> f(x) dx ± ∫<sub>a</sub><sup>b</sup> g(x) dx</div>
+                </div>
+                
+                <h3>Example Using Properties</h3>
+                <p>Given ∫<sub>1</sub><sup>4</sup> f(x) dx = 5 and ∫<sub>4</sub><sup>7</sup> f(x) dx = 3, find ∫<sub>1</sub><sup>7</sup> f(x) dx.</p>
+                
+                <div class="math-example">
+                    <p>By additivity:</p>
+                    <div class="formula">∫<sub>1</sub><sup>7</sup> f(x) dx = ∫<sub>1</sub><sup>4</sup> f(x) dx + ∫<sub>4</sub><sup>7</sup> f(x) dx = 5 + 3 = 8</div>
+                </div>
+                
+                <h3>Zero Width Interval</h3>
+                <div class="formula">∫<sub>a</sub><sup>a</sup> f(x) dx = 0</div>
+                <p>Proof: F(a) - F(a) = 0</p>`
+            },
+            {
+                title: "Definite Integrals of Odd/Even Functions",
+                content: `<h3>Symmetry Properties</h3>
+                <p>For functions with symmetry, definite integrals can be simplified:</p>
+                
+                <div class="math-example">
+                    <h3>Even Functions: f(-x) = f(x)</h3>
+                    <div class="formula">∫<sub>-a</sub><sup>a</sup> f(x) dx = 2∫<sub>0</sub><sup>a</sup> f(x) dx</div>
+                    <p>Examples: x², cos x, |x|, x⁴ - 2x² + 1</p>
+                    <p><strong>Visual:</strong> Symmetric about y-axis, so area from -a to 0 equals area from 0 to a.</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Odd Functions: f(-x) = -f(x)</h3>
+                    <div class="formula">∫<sub>-a</sub><sup>a</sup> f(x) dx = 0</div>
+                    <p>Examples: x, x³, sin x, x⁵ - x³</p>
+                    <p><strong>Visual:</strong> Area above x-axis from -a to 0 cancels with area below x-axis from 0 to a.</p>
+                </div>
+                
+                <h3>Example: Even Function</h3>
+                <p>Evaluate ∫<sub>-2</sub><sup>2</sup> (x⁴ + 3x² + 1) dx</p>
+                
+                <div class="math-example">
+                    <h3>Step 1 — Verify evenness</h3>
+                    <p>f(x) = x⁴ + 3x² + 1<br>
+                    f(-x) = (-x)⁴ + 3(-x)² + 1 = x⁴ + 3x² + 1 = f(x) ✓</p>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 2 — Apply symmetry property</h3>
+                    <div class="formula">∫<sub>-2</sub><sup>2</sup> f(x) dx = 2∫<sub>0</sub><sup>2</sup> (x⁴ + 3x² + 1) dx</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 3 — Evaluate ∫<sub>0</sub><sup>2</sup> (x⁴ + 3x² + 1) dx</h3>
+                    <div class="formula">[x⁵/5 + x³ + x]<sub>0</sub><sup>2</sup><br>
+                    = (32/5 + 8 + 2) - (0 + 0 + 0)<br>
+                    = 32/5 + 10 = 32/5 + 50/5 = 82/5</div>
+                </div>
+                
+                <div class="math-example">
+                    <h3>Step 4 — Double the result</h3>
+                    <div class="formula">2 × (82/5) = 164/5 = 32.8</div>
+                </div>
+                
+                <h3>Verification without symmetry:</h3>
+                <div class="formula">∫<sub>-2</sub><sup>2</sup> (x⁴ + 3x² + 1) dx = [x⁵/5 + x³ + x]<sub>-2</sub><sup>2</sup><br>
+                = (32/5 + 8 + 2) - [(-32)/5 + (-8) + (-2)]<br>
+                = 82/5 - (-82/5) = 164/5 ✓</div>`
+            },
+            {
+                title: "Summary and Practice",
+                content: `<h3>FTC Application Process</h3>
+                <div class="math-example">
+                    <p><strong>To evaluate ∫<sub>a</sub><sup>b</sup> f(x) dx:</strong></p>
+                    <p>1. Find any antiderivative F(x) (F'(x) = f(x))<br>
+                    2. Compute F(b) - F(a)<br>
+                    3. That's the definite integral!</p>
+                </div>
+                
+                <h3>Key Formulas</h3>
+                <div class="formula">FTC Part 2: ∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) - F(a)</div>
+                <div class="formula">Notation: [F(x)]<sub>a</sub><sup>b</sup> = F(b) - F(a)</div>
+                <div class="formula">Even function: ∫<sub>-a</sub><sup>a</sup> f(x) dx = 2∫<sub>0</sub><sup>a</sup> f(x) dx</div>
+                <div class="formula">Odd function: ∫<sub>-a</sub><sup>a</sup> f(x) dx = 0</div>
+                
+                <h3>Try It Yourself</h3>
+                <div class="math-example">
+                    <p><strong>Practice Problem 1:</strong><br>
+                    Evaluate ∫<sub>0</sub><sup>π/2</sup> (cos x + 2 sin x) dx</p>
+                    <p><em>Hint: ∫cos x dx = sin x, ∫sin x dx = -cos x</em></p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Practice Problem 2:</strong><br>
+                    Given f is odd and ∫<sub>0</sub><sup>3</sup> f(x) dx = 7, find ∫<sub>-3</sub><sup>3</sup> f(x) dx</p>
+                </div>
+                
+                <div class="math-example">
+                    <p><strong>Practice Problem 3:</strong><br>
+                    Evaluate ∫<sub>-1</sub><sup>2</sup> (4x³ - 6x² + 1) dx</p>
+                </div>
+                
+                <h3>Common Pitfalls</h3>
+                <p>1. Don't forget the constant of integration for indefinite integrals, but remember it cancels in definite integrals.<br>
+                2. Check for symmetry to simplify calculations.<br>
+                3. Verify your antiderivative by differentiating.<br>
+                4. Pay attention to integration limits (especially when negative).</p>
+                
+                <p>The Fundamental Theorem makes computing definite integrals straightforward once you can find antiderivatives!</p>`
+            }
+        ];
+
+        // Initialize the book with Lesson 6 content
+        document.addEventListener('DOMContentLoaded', function() {
+            initBook(lesson6Pages);
+        });
+    </script>
+</body>
+</html>
