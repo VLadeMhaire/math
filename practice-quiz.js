@@ -155,7 +155,7 @@ const quizData = {
                     "1.4 gallons",
                     "1.8 gallons"
                 ],
-                correct: 2,
+                correct: 1,
                 explanation: "∫₀² (0.5+0.1t) dt = [0.5t + 0.05t²]₀² = 1 + 0.2 = 1.2 gallons."
             },
             {
@@ -175,7 +175,7 @@ const quizData = {
                     "$770",
                     "$840",
                     "$910",
-                    "$980"
+                    "$1190"
                 ],
                 correct: 3,
                 explanation: "∫₀⁷ (100+20t) dt = [100t+10t²]₀⁷ = 700+490 = $1190."
