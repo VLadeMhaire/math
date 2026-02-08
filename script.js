@@ -3,6 +3,61 @@ let currentPage = 0;
 let totalPages = 0;
 let bookPages = [];
 
+// Create neon background elements
+function createNeonBackground() {
+    const neonBg = document.createElement('div');
+    neonBg.className = 'neon-bg';
+    
+    // Create grid
+    const neonGrid = document.createElement('div');
+    neonGrid.className = 'neon-grid';
+    neonBg.appendChild(neonGrid);
+    
+    // Create pulse
+    const neonPulse = document.createElement('div');
+    neonPulse.className = 'neon-pulse';
+    neonBg.appendChild(neonPulse);
+    
+    // Create orbs
+    const neonOrbs = document.createElement('div');
+    neonOrbs.className = 'neon-orbs';
+    
+    for (let i = 0; i < 3; i++) {
+        const orb = document.createElement('div');
+        orb.className = 'neon-orb';
+        neonOrbs.appendChild(orb);
+    }
+    neonBg.appendChild(neonOrbs);
+    
+    // Create lines
+    const neonLines = document.createElement('div');
+    neonLines.className = 'neon-lines';
+    
+    for (let i = 0; i < 3; i++) {
+        const line = document.createElement('div');
+        line.className = 'neon-line';
+        neonLines.appendChild(line);
+    }
+    neonBg.appendChild(neonLines);
+    
+    // Add to body
+    document.body.insertBefore(neonBg, document.body.firstChild);
+    
+    // Create additional floating particles
+    for (let i = 0; i < 5; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'neon-orb';
+        particle.style.width = `${Math.random() * 50 + 30}px`;
+        particle.style.height = particle.style.width;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.background = `radial-gradient(circle, rgba(0, ${195 + Math.random() * 60}, 255, 0.2), transparent 70%)`;
+        particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        particle.style.animationDelay = `-${Math.random() * 20}s`;
+        neonOrbs.appendChild(particle);
+    }
+}
+
 // Initialize book
 function initBook(pagesData) {
     bookPages = pagesData;
@@ -48,16 +103,16 @@ function createPages(pagesData) {
     frontCover.style.left = '50%';
     frontCover.style.zIndex = totalPages + 1;
     frontCover.innerHTML = `
-        <div class="page-front" style="background: linear-gradient(135deg, #2a4b8c, #1a2a6c); color: white; justify-content: center; align-items: center; text-align: center;">
+        <div class="page-front" style="background: linear-gradient(135deg, #001133, #0a0a2a); color: white; justify-content: center; align-items: center; text-align: center;">
             <div>
                 <h1 style="font-size: 2.8rem; margin-bottom: 20px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">${pagesData[0].bookTitle || 'Calculus Lesson'}</h1>
-                <p style="font-size: 1.5rem; margin-bottom: 10px;">Interactive Learning</p>
+                <p style="font-size: 1.5rem; margin-bottom: 10px; color: #00c3ff;">Interactive Learning</p>
                 <div style="margin: 40px 0;">
-                    <i class="fas fa-calculator" style="font-size: 5rem; opacity: 0.9;"></i>
-                    <i class="fas fa-chart-line" style="font-size: 5rem; opacity: 0.9; margin: 0 20px;"></i>
-                    <i class="fas fa-shapes" style="font-size: 5rem; opacity: 0.9;"></i>
+                    <i class="fas fa-calculator" style="font-size: 5rem; color: #00c3ff; opacity: 0.9;"></i>
+                    <i class="fas fa-chart-line" style="font-size: 5rem; color: #0077ff; opacity: 0.9; margin: 0 20px;"></i>
+                    <i class="fas fa-shapes" style="font-size: 5rem; color: #00c3ff; opacity: 0.9;"></i>
                 </div>
-                <p style="font-size: 1.2rem; font-style: italic; margin-top: 40px; color: rgba(255,255,255,0.9);">Flip the page to begin your lesson</p>
+                <p style="font-size: 1.2rem; font-style: italic; margin-top: 40px; color: rgba(0, 195, 255, 0.9);">Flip the page to begin your lesson</p>
             </div>
             <div class="page-number" style="color: rgba(255,255,255,0.7);">Cover</div>
         </div>
@@ -101,16 +156,16 @@ function createPages(pagesData) {
             <div class="page-content">${pagesData[totalPages-2].content}</div>
             <div class="page-number">Page ${totalPages-1}</div>
         </div>
-        <div class="page-back" style="background: linear-gradient(135deg, #2a4b8c, #1a2a6c); color: white; justify-content: center; align-items: center; text-align: center;">
+        <div class="page-back" style="background: linear-gradient(135deg, #001133, #0a0a2a); color: white; justify-content: center; align-items: center; text-align: center;">
             <div>
                 <h1 style="font-size: 2.8rem; margin-bottom: 20px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Lesson Complete!</h1>
-                <p style="font-size: 1.5rem; margin-bottom: 10px;">You've mastered this concept</p>
+                <p style="font-size: 1.5rem; margin-bottom: 10px; color: #00c3ff;">You've mastered this concept</p>
                 <div style="margin: 40px 0;">
-                    <i class="fas fa-graduation-cap" style="font-size: 5rem; opacity: 0.9;"></i>
-                    <i class="fas fa-award" style="font-size: 5rem; opacity: 0.9; margin: 0 20px;"></i>
-                    <i class="fas fa-star" style="font-size: 5rem; opacity: 0.9;"></i>
+                    <i class="fas fa-graduation-cap" style="font-size: 5rem; color: #00c3ff; opacity: 0.9;"></i>
+                    <i class="fas fa-award" style="font-size: 5rem; color: #0077ff; opacity: 0.9; margin: 0 20px;"></i>
+                    <i class="fas fa-star" style="font-size: 5rem; color: #00c3ff; opacity: 0.9;"></i>
                 </div>
-                <p style="font-size: 1.2rem; font-style: italic; margin-top: 40px; color: rgba(255,255,255,0.9);">Return to the index to continue learning!</p>
+                <p style="font-size: 1.2rem; font-style: italic; margin-top: 40px; color: rgba(0, 195, 255, 0.9);">Return to the index to continue learning!</p>
             </div>
             <div class="page-number" style="color: rgba(255,255,255,0.7);">Back Cover</div>
         </div>
@@ -208,58 +263,35 @@ function handleBookClick(e) {
     }
 }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Create background elements
-        const createBackgroundElements = () => {
-            // Create graph lines container
-            const graphLines = document.createElement('div');
-            graphLines.className = 'graph-lines';
-            
-            // Create graph lines
-            for (let i = 0; i < 3; i++) {
-                const line = document.createElement('div');
-                line.className = 'graph-line';
-                line.style.setProperty('--rotate', `${Math.random() * 30 - 15}deg`);
-                line.style.animationDelay = `${i * 7}s`;
-                graphLines.appendChild(line);
-            }
-            
-            // Create coordinate system
-            const coordSystem = document.createElement('div');
-            coordSystem.className = 'coordinate-system';
-            coordSystem.innerHTML = `
-                <div class="x-axis"></div>
-                <div class="y-axis"></div>
-            `;
-            
-            // Create particles
-            const particles = document.createElement('div');
-            particles.className = 'math-particles';
-            
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 15}s`;
-                particle.style.animationDuration = `${10 + Math.random() * 20}s`;
-                particles.appendChild(particle);
-            }
-            
-            // Create parallax layers
-            const parallax = document.createElement('div');
-            parallax.className = 'parallax-layer layer-1';
-            
-            const parallax2 = document.createElement('div');
-            parallax2.className = 'parallax-layer layer-2';
-            
-            // Add all to body
-            document.body.appendChild(graphLines);
-            document.body.appendChild(coordSystem);
-            document.body.appendChild(particles);
-            document.body.appendChild(parallax);
-            document.body.appendChild(parallax2);
-        };
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Create neon background
+    createNeonBackground();
+    
+    // Add interactive cursor effect
+    document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
         
-        createBackgroundElements();
+        const pulse = document.querySelector('.neon-pulse');
+        if (pulse) {
+            pulse.style.background = `
+                radial-gradient(circle at ${x}% ${y}%, rgba(0, 195, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at ${100 - x}% ${100 - y}%, rgba(0, 119, 255, 0.3) 0%, transparent 50%)
+            `;
+        }
     });
+    
+    // Animate cards on index page
+    const cards = document.querySelectorAll('.lesson-card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px) scale(0.95)';
+        
+        setTimeout(() => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) scale(1)';
+        }, 150 * index);
+    });
+});
