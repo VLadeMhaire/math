@@ -6,167 +6,15 @@
     <title>Calculus Interactive Lessons</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .lessons-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        .lessons-header {
-            text-align: center;
-            margin-bottom: 50px;
-            color: white;
-        }
-        
-        .lessons-header h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .lessons-header p {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto 30px;
-        }
-        
-        .lessons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
-        }
-        
-        .lesson-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .lesson-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-        
-        .lesson-number {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4dabf7;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .lesson-number i {
-            font-size: 1.8rem;
-        }
-        
-        .lesson-title {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-        
-        .lesson-description {
-            font-size: 1rem;
-            opacity: 0.9;
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-        
-        .lesson-link {
-            margin-top: 20px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #4dabf7, #339af0);
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .lesson-card:hover .lesson-link {
-            background: linear-gradient(135deg, #339af0, #228be6);
-        }
-        
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 60px;
-            color: white;
-        }
-        
-        .feature {
-            text-align: center;
-            max-width: 300px;
-        }
-        
-        .feature i {
-            font-size: 3rem;
-            color: #4dabf7;
-            margin-bottom: 20px;
-        }
-        
-        .feature h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .footer {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7);
-            padding: 40px 0;
-            margin-top: 60px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .creator-credit {
-            margin-top: 15px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-        
-        @media (max-width: 768px) {
-            .lessons-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .lessons-header h1 {
-                font-size: 2.2rem;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="lessons-container">
         <div class="lessons-header">
             <h1>Calculus Interactive Lessons</h1>
-            <p>Master calculus concepts through interactive, page-flipping books with complete examples and step-by-step solutions.</p>
-            <p style="font-size: 1.1rem; margin-top: 20px; background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px;">
+            <p>Master calculus concepts through interactive, page-flipping books with complete examples and step-by-step solutions. Experience learning in a whole new way with our neon-inspired interface.</p>
+            <div class="feature-highlight">
                 <i class="fas fa-lightbulb"></i> Each lesson includes: Basic theory + Two worked examples + Interactive visualization
-            </p>
+            </div>
         </div>
         
         <div class="lessons-grid">
@@ -300,18 +148,18 @@
                 </div>
             </a>
 
-            <a href="practice.html" class="lesson-card" style="background: linear-gradient(135deg, rgba(155, 89, 182, 0.2), rgba(142, 68, 173, 0.2));">
-    <div class="lesson-number">
-        <i class="fas fa-brain"></i> Practice
-    </div>
-    <div class="lesson-title">Interactive Practice Quizzes</div>
-    <div class="lesson-description">
-        Test your knowledge with interactive quizzes for each topic. Get instant feedback, track your score, and reinforce your learning with detailed explanations.
-    </div>
-    <div class="lesson-link" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
-        Start Practice <i class="fas fa-arrow-right"></i>
-    </div>
-</a>
+            <a href="practice.html" class="lesson-card" style="background: linear-gradient(135deg, rgba(155, 89, 182, 0.9), rgba(142, 68, 173, 0.9));">
+                <div class="lesson-number">
+                    <i class="fas fa-brain"></i> Practice
+                </div>
+                <div class="lesson-title">Interactive Practice Quizzes</div>
+                <div class="lesson-description">
+                    Test your knowledge with interactive quizzes for each topic. Get instant feedback, track your score, and reinforce your learning with detailed explanations.
+                </div>
+                <div class="lesson-link" style="background: linear-gradient(135deg, #ffffff, #e0b0ff); color: #8e44ad;">
+                    Start Practice <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
         </div>
         
         <div class="features">
@@ -335,31 +183,18 @@
         <div class="footer">
             <p>Calculus Interactive Lessons © 2026 | Designed for AP Calculus Students</p>
             <div class="creator-credit">
-                <i class="fas fa-code"></i> Created by: 
-                <img src="aivan.jpg" alt="Aivan" style="width: 40px; height: 40px; border-radius: 50%; vertical-align: middle; margin: 0 10px; border: 2px solid #4dabf7;">
-                <strong>Zamair Aivan T. Paguntalan</strong>
+                <i class="fas fa-code"></i> 
+                <img src="aivan.jpg" alt="Aivan">
+                <div>
+                    Created by: <strong>Zamair Aivan T. Paguntalan</strong>
+                </div>
             </div>
-            <p style="margin-top: 20px; font-size: 0.9rem;">
+            <p style="margin-top: 30px; font-size: 1rem; color: #00c3ff;">
                 <i class="fas fa-mouse-pointer"></i> Click any lesson above to begin your learning journey
             </p>
         </div>
     </div>
     
-    <script>
-        // Simple animation for lesson cards on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.lesson-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 * index);
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
